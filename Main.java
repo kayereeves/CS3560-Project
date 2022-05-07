@@ -1,10 +1,14 @@
-import javax.swing.event.SwingPropertyChangeSupport;
-
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+
+        TaskModel model = new TaskModel();
+        TaskView view = new TaskView();
+
+        TaskController controller = new TaskController(model, view);
+
         menu();
     }
 
@@ -23,24 +27,23 @@ public class Main {
 
             try {
                 response = sc.next().charAt(0);
-            }
-            catch (NoSuchElementException e) {
+            } catch (NoSuchElementException e) {
                 System.out.println();
                 System.out.println("Goodbye!");
                 break;
             }
 
-            switch(response) {
+            switch (response) {
                 case '1':
                     //display schedule
                     System.out.println();
                     System.out.println("View Schedule");
                     break;
-                
+
                 case '2':
                     //edit schedule
                     System.out.println();
-                    System.out.println("Edit Schedule"); 
+                    System.out.println("Edit Schedule");
                     break;
 
                 case '3':
