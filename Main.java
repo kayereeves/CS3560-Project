@@ -6,11 +6,10 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         menu();
-
     }
 
     public static void menu() {
-        int response = 5;
+        char response = 'a';
         Scanner sc = new Scanner(System.in);
 
         while (true) {
@@ -23,7 +22,7 @@ public class Main {
             System.out.println();
 
             try {
-                response = sc.nextInt();
+                response = sc.next().charAt(0);
             }
             catch (NoSuchElementException e) {
                 System.out.println();
@@ -32,25 +31,25 @@ public class Main {
             }
 
             switch(response) {
-                case 1:
+                case '1':
                     //display schedule
                     System.out.println();
                     System.out.println("View Schedule");
                     break;
                 
-                case 2:
+                case '2':
                     //edit schedule
                     System.out.println();
                     System.out.println("Edit Schedule"); 
                     break;
 
-                case 3:
+                case '3':
                     //write schedule to file
                     System.out.println();
                     System.out.println("Write To File");
                     break;
 
-                case 4:
+                case '4':
                     //read schedule from file
                     System.out.println();
                     System.out.println("Read From File");
