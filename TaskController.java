@@ -9,7 +9,32 @@ public class TaskController {
 
     // TODO: Accessor methods
 
-    public void updateView() {
-        view.displaySchedule();
+
+    public void menuSelection() {
+        char response = view.displayMenu();
+
+        switch (response) {
+            case '1':
+                //display schedule
+                view.displaySchedule(model.returnTasks());
+                break;
+            case '2':
+                //edit schedule
+                view.displayEditSchedule();
+                model.editTask();
+                break;
+            case '3':
+                //write schedule to file
+                view.displayWriteFile();
+                model.writeFile();
+                break;
+            case '4':
+                //read schedule from file
+                view.displayReadFile();
+                model.readFile();
+                break;
+            default:
+                view.displayInvalidResponse();
+        }
     }
 }

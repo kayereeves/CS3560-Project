@@ -6,6 +6,6 @@ public class Main {
 
         TaskController controller = new TaskController(model, view);
 
-        view.displayMenu();
+        controller.menuSelection();
     }
 }
