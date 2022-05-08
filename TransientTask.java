@@ -1,6 +1,6 @@
 public class TransientTask extends Task{
     
-    TransientTask(String name, String type, Time startTime, Time endTime, int duration, Date date){
+    TransientTask(String name, String type, Time startTime, Time endTime, double duration, Date date){
         super(name,type,startTime,endTime,duration,date);
     }
 

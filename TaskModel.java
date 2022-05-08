@@ -31,7 +31,7 @@ public class TaskModel {
                          String.valueOf(transientData[1]),
                          (Time)transientData[2],
                          (Time)transientData[3],
-                         (int)transientData[4],
+                         (double)transientData[4],
                          (Date)transientData[5]
                          ));
             break;
@@ -43,7 +43,7 @@ public class TaskModel {
                             String.valueOf(recurringData[1]),
                             (Time)recurringData[2],
                             (Time)recurringData[3],
-                            (int)recurringData[4],
+                            (double)recurringData[4],
                             (Date)recurringData[5],
                             (Date)recurringData[6],
                             (int)recurringData[7]
@@ -57,7 +57,7 @@ public class TaskModel {
                         String.valueOf(antitaskData[1]),
                         (Time)antitaskData[2],
                         (Time)antitaskData[3],
-                        (int)antitaskData[4],
+                        (double)antitaskData[4],
                         (Date)antitaskData[5]
                     ));
             break;

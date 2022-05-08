@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.lang.String;
 
 public class Date {
     public static final String pattern = "[0-9]?[0-9]/[0-9]?[0-9]/[0-9][0-9][0-9][0-9]";
@@ -7,11 +8,15 @@ public class Date {
     private int month; //1-12
     private int day; //1-31
     private int year; //2000-2100
+    private int dateInt;
 
     public Date(int month, int day, int year) {
         this.month = month;
         this.day = day;
         this.year = year;
+
+        String s = Integer.toString(this.year) + String.format("%02d", this.month) + String.format("%02d", this.day);
+        this.dateInt = Integer.parseInt(s);
     }
 
     public int getDay() {

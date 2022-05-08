@@ -3,10 +3,10 @@ public abstract class Task {
     private String type;
     private Time startTime;
     private Time endTime;
-    private int duration;
+    private double duration;
     private Date date;
     
-    public Task(String name, String type, Time startTime, Time endTime, int duration, Date date) {
+    public Task(String name, String type, Time startTime, Time endTime, double duration, Date date) {
         this.name = name;
         this.type = type;
         this.startTime = startTime;
@@ -31,7 +31,7 @@ public abstract class Task {
         return endTime;
     }
 	
-	public int getDuration() {
+	public double getDuration() {
 		return duration;
 	}
 	

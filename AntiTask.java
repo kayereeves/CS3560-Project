@@ -1,5 +1,5 @@
 public class AntiTask extends Task{  
-    AntiTask(String name, String type, Time startTime, Time endTime, int duration, Date date){
+    AntiTask(String name, String type, Time startTime, Time endTime, double duration, Date date){
         super(name, type, startTime, endTime, duration, date);
     }
 

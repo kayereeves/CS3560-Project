@@ -2,7 +2,7 @@ public class RecurringTask extends Task {
     private Date endDate;
     private int frequency;
 
-    RecurringTask(String name, String type, Time startTime, Time endTime, int duration, Date date, Date endDate, int frequency){
+    RecurringTask(String name, String type, Time startTime, Time endTime, double duration, Date date, Date endDate, int frequency){
         super(name,type,startTime,endTime,duration,date);
         this.endDate = endDate;
         this.frequency = frequency;
