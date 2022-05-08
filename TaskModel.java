@@ -5,11 +5,17 @@ public class TaskModel {
     private FileIO fileIO;
     private TaskView view;
 
-    public List<Task> returnTasks() {
+    public List<Task> getTasks() {
         return taskData;
     }
 
-    // TODO: Accessor Methods
+    public FileIO getFileIO() {
+    	return fileIO;
+    }
+    
+    public TaskView getView() {
+    	return view;
+    }
 
     public void createTask(String type) {
 
@@ -40,7 +46,15 @@ public class TaskModel {
                         ));
             break;
             case "antitask":
-            // TODO: responsibilies when prompted to create antitask
+            Object[] antitaskData = view.retrieveTaskData(type);
+            taskData.add(
+                    new AntiTask(
+                        String.valueOf(antitaskData[0]),
+                        String.valueOf(antitaskData[1]),
+                        Double.parseDouble((String) antitaskData[2]), //i thought this would work -- unsure how to handle this
+                        Double.parseDouble((String) antitaskData[3]),
+                        (int)antitaskData[4]
+                    ));
             break;
             default:
             System.out.println("Could not create task.");

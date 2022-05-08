@@ -7,7 +7,13 @@ public class TaskController {
         this.view = view;
     }
 
-    // TODO: Accessor methods
+    public TaskModel getModel() {
+    	return model;
+    }
+    
+    public TaskView getView() {
+    	return view;
+    }
 
 
     public void menuSelection() {
@@ -16,7 +22,7 @@ public class TaskController {
         switch (response) {
             case '1':
                 //display schedule
-                view.displaySchedule(model.returnTasks());
+                view.displaySchedule(model.getTasks());
                 break;
             case '2':
                 //edit schedule

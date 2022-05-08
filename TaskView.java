@@ -18,8 +18,29 @@ public class TaskView {
     }
 
     public void displayTask(Task task) {
-        System.out.print("Task: ");
-        // TODO: Add formatting for displaying different tasks
+    	/* current implementation
+    	 * Task: Walk the dog
+    	 * Type: Recurring
+    	 * Start Time: 05/24/2022 at 22:45 (was kinda lazy here with military time, feel free to modify if you wish)
+    	 * Duration: 
+    	 */
+    	String tempTime = String.valueOf(task.getStartTime());
+    	if (task.getStartTime() < 1) {
+		    tempTime = "00" + tempTime;
+		} else if (task.getStartTime() < 10) {
+    		tempTime = "0" + tempTime;
+    	}
+    	String time = tempTime.substring(0,2) + ":";
+    	if (task.getStartTime() % 1 == 0) {
+    		time += "00";
+    	} else {
+    		time += (int) ((task.getStartTime() % 1) * 60);
+    	}
+    	
+        System.out.print("Task: " + task.getName() + 
+        		"\nType: " + task.getType() + 
+        		"\nStart Time: " + String.valueOf(task.getDate()).substring(4,6) + "/" + String.valueOf(task.getDate()).substring(6,8) + "/" + String.valueOf(task.getDate()).substring(0,4) + " at " + time +
+        		"\nDuration: " + task.getDuration() + " hours");
     }
 
     public char displayMenu() {
@@ -79,10 +100,10 @@ public class TaskView {
 
     public Object[] retrieveTaskData(String taskType){
         Scanner sc = getScanner();
-        Object[] arguments;
+        Object[] arguments = null;
         String name;
-        double startTime;   //parsed to double later
-        double duration;    //parsed to double later
+        String startTime;   //parsed to float later
+        String duration;    //parsed to float later
         int date;
 
         System.out.println("Please enter task data when prompted:");
@@ -92,11 +113,11 @@ public class TaskView {
         //check if name exists
 
         System.out.println("Please enter start time (format: i forgot");
-        startTime = Double.parseDouble(sc.nextLine());
+        startTime = sc.nextLine();
         //check if valid or overlap
 
         System.out.println("Please enter the duration:");
-        duration = Double.parseDouble(sc.nextLine());
+        duration = sc.nextLine();
         //check if valid or overlap
 
         if(taskType == "transient"){
@@ -121,15 +142,7 @@ public class TaskView {
 
             arguments = new Object[] {name, taskType, startTime, duration, date, endDate, frequency};
         }
-        else {
-            System.out.println("What date will this task occur?");
-            date = sc.nextInt();
-            //check if valid or if task with this name exists on this day already??
-            //maybe it should go before task name then? bc a task might have same name but be on different days
-            arguments = new Object[] {name, taskType, startTime, duration, date};
-        }
 
-    //not sure how to fix this error
     return arguments;
     }
 

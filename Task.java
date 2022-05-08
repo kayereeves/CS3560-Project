@@ -12,4 +12,24 @@ public abstract class Task {
         this.duration = duration;
         this.date = date;
     }
+	
+	public String getName() {
+		return name;
+	}
+	
+	public String getType() {
+		return type;
+	}
+	
+	public double getStartTime() {
+		return startTime;
+	}
+	
+	public double getDuration() {
+		return duration;
+	}
+	
+	public int getDate() {
+		return date;
+	}
 }

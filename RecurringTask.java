@@ -7,4 +7,12 @@ public class RecurringTask extends Task {
         this.endDate = endDate;
         this.frequency = frequency;
     }
+    
+    public int getEndDate() {
+		return endDate;
+	}
+    
+    public int getFrequency() {
+    	return frequency;
+    }
 }
