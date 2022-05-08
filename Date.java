@@ -58,32 +58,42 @@ public class Date {
                     if (((this.year % 4 == 0) && 
                     !(this.year % 100 == 0))
                     || (this.year % 400 == 0)) {
-                        if (this.day <= 1 || this.day >= 29) {
+                        //leap year
+                        if (this.day < 1 || this.day > 29) {
                             return false;
                         }
                     }
                     else {
-                        if (this.day <= 1 || this.day >= 28) {
+                        //non leap year
+                        if (this.day < 1 || this.day > 28) {
                             return false;
                         }
                     }
                     break;
             }   
+
+            if (this.year < MIN_YEAR || this.year > MAX_YEAR) {
+                return false;
+            }
+
+            return true;
         }
 
-        if (this.year < MIN_YEAR || this.year > MAX_YEAR) {
-            return false;
-        }
+        return false;
+    }
 
-        return true;
+    private static int[] conversion(String s) {
+        String[] splitString = s.split("/");
+        int[] arr = {Integer.parseInt(splitString[0]), Integer.parseInt(splitString[1]),
+        Integer.parseInt(splitString[2])};
+
+        return arr;
     }
 
     //parse date from string in mm/dd/yyyy format
     public static Date parseDate(Scanner sc) {
         String s = sc.next(Date.pattern);
-        String[] splitString = s.split("/");
-        int[] monthDayYear = {Integer.parseInt(splitString[0]), Integer.parseInt(splitString[1]),
-        Integer.parseInt(splitString[2])};
+        int[] monthDayYear = conversion(s);
         
         return new Date(monthDayYear[0], monthDayYear[1], monthDayYear[2]);
     }

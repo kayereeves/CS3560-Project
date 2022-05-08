@@ -18,11 +18,17 @@ public class Time {
         return minutes;
     }
 
+    private static int[] conversion(String s) {
+        String[] splitString = s.split(":");
+        int[] arr = {Integer.parseInt(splitString[0]), Integer.parseInt(splitString[1])};
+
+        return arr;
+    }
+
     //parse time from string in hh:mm format
     public static Time parseTime(Scanner sc) {
         String s = sc.next(Time.pattern);
-        String[] splitString = s.split(":");
-        int[] hoursAndMinutes = {Integer.parseInt(splitString[0]), Integer.parseInt(splitString[1])};
+        int[] hoursAndMinutes = conversion(s);
         
         return new Time(hoursAndMinutes[0], hoursAndMinutes[1]);
     }
