@@ -9,6 +9,7 @@ public class Time {
     public Time(int hours, int minutes) {
         this.hours = hours;
         this.minutes = minutes;
+        this.round();
         this.calcDouble();
     }
 
@@ -58,8 +59,9 @@ public class Time {
     //returns true if time is in valid range
     public Boolean validate() {
         if (this.hours >= 0 && this.hours <= 23) {
-            this.round();
-            return true;
+            if (this.minutes >= 0 && this.minutes <= 59) {
+                return true;
+            }
         }
         return false;
     }
@@ -77,14 +79,19 @@ public class Time {
 
         if (this.minutes == 60) {
             this.minutes = 0;
-            this.hours += 1;
+
+            if (this.hours == 23) {
+                this.hours = 0;
+            }
+            else {
+                this.hours += 1;
+            }
         }
-        this.calcDouble();
     }
 
     //returns true if calling object time is earlier than arg
     public Boolean lessThan(Time toCompare) {
-        if (this.hours < toCompare.hours || (this.hours == toCompare.hours && this.minutes < toCompare.minutes))
+        if (this.getTimeDouble() < toCompare.getTimeDouble())
         {
             return true;
         }
