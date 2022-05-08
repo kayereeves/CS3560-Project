@@ -21,8 +21,8 @@ public class TaskModel {
                         new TransientTask(
                          String.valueOf(transientData[0]),
                          String.valueOf(transientData[1]),
-                         Float.parseFloat(transientData[2]), //i thought this would work -- unsure how to handle this
-                         Float.parseFloat(transientData[3]), //might be easier to use double?
+                         Double.parseDouble((String) transientData[2]), //i thought this would work -- unsure how to handle this
+                         Double.parseDouble((String) transientData[3]), //might be easier to use double?
                          (int)transientData[4]
                          ));
             break;
@@ -32,11 +32,11 @@ public class TaskModel {
                         new RecurringTask(
                             String.valueOf(recurringData[0]),
                             String.valueOf(recurringData[1]),
-                            Float.parseFloat(recurringData[2]), //i thought this would work -- unsure how to handle this
-                            Float.parseFloat(recurringData[3]),
-                            (int)transientData[4],
-                            (int)transientData[5],
-                            (int)transientData[6]
+                            Double.parseDouble((String) recurringData[2]), //i thought this would work -- unsure how to handle this
+                            Double.parseDouble((String) recurringData[3]),
+                            (int)recurringData[4],
+                            (int)recurringData[5],
+                            (int)recurringData[6]
                         ));
             break;
             case "antitask":

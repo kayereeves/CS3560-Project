@@ -81,8 +81,8 @@ public class TaskView {
         Scanner sc = getScanner();
         Object[] arguments;
         String name;
-        String startTime;   //parsed to float later
-        String duration;    //parsed to float later
+        double startTime;   //parsed to double later
+        double duration;    //parsed to double later
         int date;
 
         System.out.println("Please enter task data when prompted:");
@@ -92,11 +92,11 @@ public class TaskView {
         //check if name exists
 
         System.out.println("Please enter start time (format: i forgot");
-        startTime = sc.nextLine();
+        startTime = Double.parseDouble(sc.nextLine());
         //check if valid or overlap
 
         System.out.println("Please enter the duration:");
-        duration = sc.nextLine();
+        duration = Double.parseDouble(sc.nextLine());
         //check if valid or overlap
 
         if(taskType == "transient"){
@@ -120,6 +120,13 @@ public class TaskView {
             frequency = sc.nextInt();
 
             arguments = new Object[] {name, taskType, startTime, duration, date, endDate, frequency};
+        }
+        else {
+            System.out.println("What date will this task occur?");
+            date = sc.nextInt();
+            //check if valid or if task with this name exists on this day already??
+            //maybe it should go before task name then? bc a task might have same name but be on different days
+            arguments = new Object[] {name, taskType, startTime, duration, date};
         }
 
     //not sure how to fix this error
