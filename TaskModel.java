@@ -17,19 +17,22 @@ public class TaskModel {
     	return view;
     }
 
-    public void createTask(String type) {
+    public void createTask(String type, TaskView view) {
 
+        Scanner s = view.getScanner();
+        
         switch(type){
             case "transient":
 
             Object[] transientData = view.retrieveTaskData(type);
             taskData.add(
-                        new TransientTask(
+                    new TransientTask(
                          String.valueOf(transientData[0]),
                          String.valueOf(transientData[1]),
-                         Double.parseDouble((String) transientData[2]), //i thought this would work -- unsure how to handle this
-                         Double.parseDouble((String) transientData[3]), //might be easier to use double?
-                         (int)transientData[4]
+                         (Time)transientData[2],
+                         (Time)transientData[3],
+                         (int)transientData[4],
+                         (Date)transientData[5]
                          ));
             break;
             case "recurring":
@@ -38,11 +41,12 @@ public class TaskModel {
                         new RecurringTask(
                             String.valueOf(recurringData[0]),
                             String.valueOf(recurringData[1]),
-                            Double.parseDouble((String) recurringData[2]), //i thought this would work -- unsure how to handle this
-                            Double.parseDouble((String) recurringData[3]),
+                            (Time)recurringData[2],
+                            (Time)recurringData[3],
                             (int)recurringData[4],
-                            (int)recurringData[5],
-                            (int)recurringData[6]
+                            (Date)recurringData[5],
+                            (Date)recurringData[6],
+                            (int)recurringData[7]
                         ));
             break;
             case "antitask":
@@ -51,9 +55,10 @@ public class TaskModel {
                     new AntiTask(
                         String.valueOf(antitaskData[0]),
                         String.valueOf(antitaskData[1]),
-                        Double.parseDouble((String) antitaskData[2]), //i thought this would work -- unsure how to handle this
-                        Double.parseDouble((String) antitaskData[3]),
-                        (int)antitaskData[4]
+                        (Time)antitaskData[2],
+                        (Time)antitaskData[3],
+                        (int)antitaskData[4],
+                        (Date)antitaskData[5]
                     ));
             break;
             default:

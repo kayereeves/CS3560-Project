@@ -10,44 +10,31 @@ public class TaskView {
         return sc;
     }
 
+    //TODO: add a way to list tasks by date or date range
     public void displaySchedule(List<Task> tasks) {
-        System.out.print("Schedule: ");
+        System.out.println("Schedule: ");
+        if (tasks.size() == 0) {
+            System.out.println("There are no tasks.");
+        }
+        else {
+            tasks.forEach((task) -> displayTask(task));
+        }
+        System.out.println();
+
         /* TODO: Add formatting for schedule display and different
             display types
          */
     }
 
     public void displayTask(Task task) {
-    	/* current implementation
-    	 * Task: Walk the dog
-    	 * Type: Recurring
-    	 * Start Time: 05/24/2022 at 22:45 (was kinda lazy here with military time, feel free to modify if you wish)
-    	 * Duration: 
-    	 */
-    	String tempTime = String.valueOf(task.getStartTime());
-    	if (task.getStartTime() < 1) {
-		    tempTime = "00" + tempTime;
-		} else if (task.getStartTime() < 10) {
-    		tempTime = "0" + tempTime;
-    	}
-    	String time = tempTime.substring(0,2) + ":";
-    	if (task.getStartTime() % 1 == 0) {
-    		time += "00";
-    	} else {
-    		time += (int) ((task.getStartTime() % 1) * 60);
-    	}
-    	
-        System.out.print("Task: " + task.getName() + 
-        		"\nType: " + task.getType() + 
-        		"\nStart Time: " + String.valueOf(task.getDate()).substring(4,6) + "/" + String.valueOf(task.getDate()).substring(6,8) + "/" + String.valueOf(task.getDate()).substring(0,4) + " at " + time +
-        		"\nDuration: " + task.getDuration() + " hours");
+    	task.print();
     }
 
     public char displayMenu() {
         char response = 'a';
         Scanner sc = getScanner();
 
-        System.out.println("Welcome to CS3560 PSS! Enter a response at the prompt or press CTRL + X + C to quit.");
+        System.out.println("Welcome to CS3560 PSS! Enter a response at the prompt or press Q to quit.");
         System.out.println();
         System.out.println("1: View Schedule");
         System.out.println("2: Edit Schedule");
@@ -59,26 +46,10 @@ public class TaskView {
             response = sc.next().charAt(0);
         } catch (NoSuchElementException e) {
             System.out.println();
-            System.out.println("Goodbye!");
+            System.exit(0);
         }
 
         return response;
-    }
-
-    public void displayViewSchedule() {
-        System.out.println("View Schedule \n");
-    }
-
-    public void displayEditSchedule() {
-        System.out.println("Edit Schedule \n");
-    }
-
-    public void displayWriteFile() {
-        System.out.println("Write To File \n");
-    }
-
-    public void displayReadFile() {
-        System.out.println("Read From File \n");
     }
 
     public void displayInvalidResponse() {
@@ -102,45 +73,74 @@ public class TaskView {
         Scanner sc = getScanner();
         Object[] arguments = null;
         String name;
-        String startTime;   //parsed to float later
-        String duration;    //parsed to float later
-        int date;
+        Time startTime;   
+        Time endTime;
+        String duration;
+        Date date;
 
         System.out.println("Please enter task data when prompted:");
 
-        System.out.println("Task name:");
+        System.out.print("Task name: ");
         name = sc.nextLine();
+        System.out.println();
         //check if name exists
 
-        System.out.println("Please enter start time (format: i forgot");
-        startTime = sc.nextLine();
+        System.out.print("Please enter start time (hh:mm, 24-hour clock): ");
+        startTime = Time.parseTime(sc);
+        while (!startTime.validate()) {
+            System.out.println("Invalid time");
+            startTime = Time.parseTime(sc);
+        }
+        System.out.println();
+        
+        System.out.print("Please enter end time (hh:mm, 24-hour clock): ");
+        endTime = Time.parseTime(sc);
+        while (!endTime.validate()) {
+            System.out.println("Invalid time");
+            endTime = Time.parseTime(sc);
+        }
+        System.out.println();
         //check if valid or overlap
 
         System.out.println("Please enter the duration:");
         duration = sc.nextLine();
         //check if valid or overlap
 
-        if(taskType == "transient"){
-            System.out.println("What date will this task occur?");
-            date = sc.nextInt();
+        if (taskType.equals("transient") || taskType.equals("antitask")) {
+            System.out.print("What date will this task occur? (mm/dd/yyyy): ");
+            date = Date.parseDate(sc);
+            while (!date.validate()) {
+                System.out.println("Invalid calendar date");
+                date = Date.parseDate(sc);
+            }
             //check if valid or if task with this name exists on this day already??
             //maybe it should go before task name then? bc a task might have same name but be on different days
             arguments = new Object[] {name, taskType, startTime, duration, date};
         }
-        else if(taskType == "recurring"){
-            int endDate;
+        else if (taskType.equals("recurring")){
+            Date endDate;
             int frequency;
 
-            System.out.println("What date will this task begin?");
-            date = sc.nextInt();
+            System.out.print("What date will this task begin? (mm/dd/yyyy): ");
+            date = Date.parseDate(sc);
+            System.out.println();
+            while (!date.validate()) {
+                System.out.println("Invalid calendar date");
+                date = Date.parseDate(sc);
+            }
             //check if valid
-            System.out.println("What date will this task end?");
-            endDate = sc.nextInt();
-            //check if valid
+            System.out.print("What date will this task end? (mm/dd/yyyy): ");
+            endDate = Date.parseDate(sc);
+            System.out.println();
+            while (!endDate.validate()) {
+                System.out.println("Invalid calendar date");
+                endDate = Date.parseDate(sc);
+            }
+
             System.out.println("How many times will it occur? (enter number only)");
             frequency = sc.nextInt();
 
-            arguments = new Object[] {name, taskType, startTime, duration, date, endDate, frequency};
+            arguments = new Object[] {name, taskType, duration, startTime, endTime, date, endDate, frequency};
         }
 
     return arguments;

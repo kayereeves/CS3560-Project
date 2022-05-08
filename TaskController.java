@@ -17,30 +17,33 @@ public class TaskController {
 
 
     public void menuSelection() {
-        char response = view.displayMenu();
+        while (true) {
+            char response = view.displayMenu();
 
-        switch (response) {
-            case '1':
-                //display schedule
-                view.displaySchedule(model.getTasks());
-                break;
-            case '2':
-                //edit schedule
-                view.displayEditSchedule();
-                model.editTask();
-                break;
-            case '3':
-                //write schedule to file
-                view.displayWriteFile();
-                model.writeFile();
-                break;
-            case '4':
-                //read schedule from file
-                view.displayReadFile();
-                model.readFile();
-                break;
-            default:
-                view.displayInvalidResponse();
+            switch (response) {
+                case '1':
+                    //display schedule
+                    view.displaySchedule(model.getTasks());
+                    break;
+                case '2':
+                    //edit schedule
+                    model.editTask();
+                    break;
+                case '3':
+                    //write schedule to file
+                    model.writeFile();
+                    break;
+                case '4':
+                    //read schedule from file
+                    model.readFile();
+                    break;
+                case 'Q':
+                case 'q':
+                    System.out.println("Goodbye!");
+                    System.exit(0);
+                default:
+                    view.displayInvalidResponse();
+            }
         }
     }
 
@@ -48,11 +51,11 @@ public class TaskController {
         char response = view.displayTaskPrompt();
 
         if (response==1)
-            model.createTask("transient");
+            model.createTask("transient", view);
         else if(response==2)
-            model.createTask("recurring");
+            model.createTask("recurring", view);
         else if(response==3)
-            model.createTask("antitask");
+            model.createTask("antitask", view);
         else{
             System.out.println(response + "is not a valid option, please try again.");
             taskSelection();
