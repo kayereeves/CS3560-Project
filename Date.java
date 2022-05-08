@@ -31,6 +31,10 @@ public class Date {
         return year;
     }
 
+    public int getDateInt() {
+        return dateInt;
+    }
+
     //returns true if date is in valid range
     public Boolean validate() {
         if (this.month >= 1 && this.month <= 12) {

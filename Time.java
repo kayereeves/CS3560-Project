@@ -9,7 +9,7 @@ public class Time {
     public Time(int hours, int minutes) {
         this.hours = hours;
         this.minutes = minutes;
-        this.timeDouble = (double) hours + ((double) minutes / 60);
+        this.calcDouble();
     }
 
     public int getHours() {
@@ -18,6 +18,14 @@ public class Time {
 
     public int getMinutes() {
         return minutes;
+    }
+
+    public double getTimeDouble() {
+        return timeDouble;
+    }
+
+    private void calcDouble() {
+        this.timeDouble = (double) this.hours + ((double) this.minutes / 60);
     }
 
     private static int[] conversion(String s) {
@@ -71,6 +79,7 @@ public class Time {
             this.minutes = 0;
             this.hours += 1;
         }
+        this.calcDouble();
     }
 
     //returns true if calling object time is earlier than arg
