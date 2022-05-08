@@ -77,4 +77,53 @@ public class TaskView {
         return response;
     }
 
+    public Object[] retrieveTaskData(String taskType){
+        Scanner sc = getScanner();
+        Object[] arguments;
+        String name;
+        String startTime;   //parsed to float later
+        String duration;    //parsed to float later
+        int date;
+
+        System.out.println("Please enter task data when prompted:");
+
+        System.out.println("Task name:");
+        name = sc.nextLine();
+        //check if name exists
+
+        System.out.println("Please enter start time (format: i forgot");
+        startTime = sc.nextLine();
+        //check if valid or overlap
+
+        System.out.println("Please enter the duration:");
+        duration = sc.nextLine();
+        //check if valid or overlap
+
+        if(taskType == "transient"){
+            System.out.println("What date will this task occur?");
+            date = sc.nextInt();
+            //check if valid or if task with this name exists on this day already??
+            //maybe it should go before task name then? bc a task might have same name but be on different days
+            arguments = new Object[] {name, taskType, startTime, duration, date};
+        }
+        else if(taskType == "recurring"){
+            int endDate;
+            int frequency;
+
+            System.out.println("What date will this task begin?");
+            date = sc.nextInt();
+            //check if valid
+            System.out.println("What date will this task end?");
+            endDate = sc.nextInt();
+            //check if valid
+            System.out.println("How many times will it occur? (enter number only)");
+            frequency = sc.nextInt();
+
+            arguments = new Object[] {name, taskType, startTime, duration, date, endDate, frequency};
+        }
+
+    //not sure how to fix this error
+    return arguments;
+    }
+
 }
