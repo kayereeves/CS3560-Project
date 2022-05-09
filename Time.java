@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Time {
@@ -38,7 +39,19 @@ public class Time {
 
     //parse time from string in hh:mm format
     public static Time parseTime(Scanner sc) {
-        String s = sc.next(Time.pattern);
+        String s = "";
+
+        while (true) {
+            try {
+                s = sc.next(Time.pattern);
+                break;
+            }
+            catch(InputMismatchException e) {
+                System.out.print("Input error. Check format and try again: ");
+                sc.next();
+            }
+        }
+
         int[] hoursAndMinutes = conversion(s);
         
         return new Time(hoursAndMinutes[0], hoursAndMinutes[1]);

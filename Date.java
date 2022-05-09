@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.lang.String;
 
@@ -101,7 +102,19 @@ public class Date {
 
     //parse date from string in mm/dd/yyyy format
     public static Date parseDate(Scanner sc) {
-        String s = sc.next(Date.pattern);
+        String s = "";
+
+        while (true) {
+            try {
+                s = sc.next(Date.pattern);
+                break;
+            }
+            catch(InputMismatchException e) {
+                System.out.print("Input error. Check format and try again: ");
+                sc.next();
+            }
+        }
+
         int[] monthDayYear = conversion(s);
         
         return new Date(monthDayYear[0], monthDayYear[1], monthDayYear[2]);
