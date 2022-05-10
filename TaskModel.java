@@ -5,6 +5,11 @@ public class TaskModel {
     private FileIO fileIO;
     private TaskView view;
 
+    public TaskModel() {
+        this.fileIO = new FileIO();
+        this.view = new TaskView();
+    }
+
     public List<Task> getTasks() {
         return taskData;
     }
@@ -31,8 +36,7 @@ public class TaskModel {
                          String.valueOf(transientData[1]),
                          (Time)transientData[2],
                          (Time)transientData[3],
-                         (double)transientData[4],
-                         (Date)transientData[5]
+                         (Date)transientData[4]
                          ));
             break;
             case "recurring":
@@ -43,10 +47,9 @@ public class TaskModel {
                             String.valueOf(recurringData[1]),
                             (Time)recurringData[2],
                             (Time)recurringData[3],
-                            (double)recurringData[4],
+                            (Date)recurringData[4],
                             (Date)recurringData[5],
-                            (Date)recurringData[6],
-                            (int)recurringData[7]
+                            (int)recurringData[6]
                         ));
             break;
             case "antitask":
@@ -57,8 +60,7 @@ public class TaskModel {
                         String.valueOf(antitaskData[1]),
                         (Time)antitaskData[2],
                         (Time)antitaskData[3],
-                        (double)antitaskData[4],
-                        (Date)antitaskData[5]
+                        (Date)antitaskData[4]
                     ));
             break;
             default:
@@ -78,12 +80,12 @@ public class TaskModel {
     }
 
     public void writeFile() {
-        // TODO: Hook up FileIO's writeFile() method.
-        // fileIO.writeFile();
+        // change output.txt to user input
+        fileIO.writeFile(this.taskData, "output.txt");
     }
 
     public void readFile() {
-        // TODO: Hook up FileIO's readFile() method.
-        // fileIO.readFile();
+        // change output.txt to user input
+        fileIO.readFile(this.taskData, "output.txt");
     }
 }

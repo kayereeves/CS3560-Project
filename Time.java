@@ -5,12 +5,14 @@ public class Time {
     private static String pattern = "[0-9]?[0-9]:[0-9][0-9]";
     private int hours; //0-23
     private int minutes; //0-59
+    private String timeString;
     private double timeDouble;
     
     public Time(int hours, int minutes) {
         this.hours = hours;
         this.minutes = minutes;
         this.round();
+        this.timeString = this.hours + ":" + this.minutes; 
         this.calcDouble();
     }
 
@@ -26,11 +28,16 @@ public class Time {
         return timeDouble;
     }
 
+    //for use in writing to file
+    public String getTimeString() {
+        return this.timeString;
+    }
+
     private void calcDouble() {
         this.timeDouble = (double) this.hours + ((double) this.minutes / 60);
     }
 
-    private static int[] conversion(String s) {
+    public static int[] conversion(String s) {
         String[] splitString = s.split(":");
         int[] arr = {Integer.parseInt(splitString[0]), Integer.parseInt(splitString[1])};
 
@@ -54,7 +61,11 @@ public class Time {
 
         int[] hoursAndMinutes = conversion(s);
         
-        return new Time(hoursAndMinutes[0], hoursAndMinutes[1]);
+        return intsToTime(hoursAndMinutes);
+    }
+
+    public static Time intsToTime(int[] array) {
+        return new Time(array[0], array[1]);
     }
 
     //helper method that prints a Time in xx:xx format

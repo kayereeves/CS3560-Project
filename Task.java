@@ -6,12 +6,12 @@ public abstract class Task {
     private double duration;
     private Date date;
     
-    public Task(String name, String type, Time startTime, Time endTime, double duration, Date date) {
+    public Task(String name, String type, Time startTime, Time endTime, Date date) {
         this.name = name;
         this.type = type;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.duration = duration;
+        this.duration = endTime.getTimeDouble() - startTime.getTimeDouble();
         this.date = date;
     }
 	
@@ -41,6 +41,11 @@ public abstract class Task {
 
     public void print() {
         //don't delete, should be overridden by children
+    }
+
+    public String toString() {
+        return this.name + "," + this.type + "," + this.startTime.getTimeString() + "," 
+        + this.endTime.getTimeString() + "," + this.date.getDateString();
     }
 
     //helper method to determine if tasks overlap

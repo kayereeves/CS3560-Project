@@ -1,7 +1,6 @@
-public class TransientTask extends Task{
-    
-    TransientTask(String name, String type, Time startTime, Time endTime, double duration, Date date){
-        super(name,type,startTime,endTime,duration,date);
+public class TransientTask extends Task{  
+    TransientTask(String name, String type, Time startTime, Time endTime, Date date){
+        super(name, type, startTime, endTime, date);
     }
 
     //prints task info
@@ -13,6 +12,8 @@ public class TransientTask extends Task{
         System.out.println();
         System.out.print("End Time: ");
         super.getEndTime().print();
+        System.out.println();
+        System.out.print("Duration: " + super.getDuration() + " hours");
         System.out.println();
         System.out.print("Date: ");
         super.getDate().print();

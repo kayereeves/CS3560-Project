@@ -10,11 +10,13 @@ public class Date {
     private int day; //1-31
     private int year; //2000-2100
     private int dateInt;
+    private String dateString;
 
     public Date(int month, int day, int year) {
         this.month = month;
         this.day = day;
         this.year = year;
+        this.dateString = this.month + "/" + this.day + "/" + this.year; 
 
         String s = Integer.toString(this.year) + String.format("%02d", this.month) + String.format("%02d", this.day);
         this.dateInt = Integer.parseInt(s);
@@ -34,6 +36,11 @@ public class Date {
 
     public int getDateInt() {
         return dateInt;
+    }
+
+    //for use in writing to file
+    public String getDateString() {
+        return this.dateString;
     }
 
     //returns true if date is in valid range
@@ -92,7 +99,7 @@ public class Date {
         return false;
     }
 
-    private static int[] conversion(String s) {
+    public static int[] conversion(String s) {
         String[] splitString = s.split("/");
         int[] arr = {Integer.parseInt(splitString[0]), Integer.parseInt(splitString[1]),
         Integer.parseInt(splitString[2])};
@@ -117,7 +124,11 @@ public class Date {
 
         int[] monthDayYear = conversion(s);
         
-        return new Date(monthDayYear[0], monthDayYear[1], monthDayYear[2]);
+        return intsToDate(monthDayYear);
+    }
+
+    public static Date intsToDate(int[] array) {
+        return new Date(array[0], array[1], array[2]);
     }
 
     //helper method that prints the Date in mm/dd/yyyy format

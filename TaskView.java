@@ -12,7 +12,9 @@ public class TaskView {
 
     //TODO: add a way to list tasks by date or date range
     public void displaySchedule(List<Task> tasks) {
-        System.out.println("Schedule: ");
+        System.out.println("---Schedule---");
+        System.out.println();
+        
         if (tasks.size() == 0) {
             System.out.println("There are no tasks.");
         }
@@ -28,6 +30,7 @@ public class TaskView {
 
     public void displayTask(Task task) {
     	task.print();
+        System.out.println();
     }
 
     public char displayMenu() {

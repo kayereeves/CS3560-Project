@@ -1,19 +1,43 @@
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
 import java.util.Scanner;
 
 public class FileIO {
 
     String filename;
 
-    public void readFile(String filename) {
+    public void readFile(List<Task> tasks, String filename) {
         try {
             File file = new File(filename);
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
-                //need to figure out how we want to read it
+                String s = scanner.nextLine();
+                String[] arr = s.split(",");
+
+                switch(arr[1]) {
+                    case "antitask":
+                        tasks.add(new AntiTask(arr[0], arr[1], Time.intsToTime(Time.conversion(arr[2])),
+                        Time.intsToTime(Time.conversion(arr[3])), Date.intsToDate(Date.conversion(arr[4]))));
+                        break;
+
+                    case "recurringtask":
+                        tasks.add(new RecurringTask(arr[0], arr[1], Time.intsToTime(Time.conversion(arr[2])),
+                        Time.intsToTime(Time.conversion(arr[3])), Date.intsToDate(Date.conversion(arr[4])),
+                        Date.intsToDate(Date.conversion(arr[5])), Integer.parseInt(arr[6])));
+                        break;
+
+                    case "transienttask":
+                        tasks.add(new TransientTask(arr[0], arr[1], Time.intsToTime(Time.conversion(arr[2])),
+                        Time.intsToTime(Time.conversion(arr[3])), Date.intsToDate(Date.conversion(arr[4]))));
+                        break;
+
+                    default:
+                        break;
+                }
             }
             scanner.close();
         } catch (FileNotFoundException e) {
@@ -21,33 +45,27 @@ public class FileIO {
         }
     }
 
-    public void writeFile(String filename) {
-        createFile(filename);
+    public void writeFile(List<Task> tasks, String filename) {
         try {
-            FileWriter writer = new FileWriter(filename);
-            // TODO: writing style
-            writer.write("idk");
-            writer.close();
-        } catch (IOException e) {
-            System.out.println("Could not write to file.");
-            e.printStackTrace();
-        }
-    }
+        FileWriter file = new FileWriter(filename);
+        BufferedWriter output = new BufferedWriter(file);
 
-    private void createFile(String filename) {
-        try {
-            File file = new File(filename);
-            if (file.createNewFile()) {
-                System.out.println("File created: " + file.getName());
-            } else {
-                System.out.println("File already exists.");
+        tasks.forEach((task) -> {
+            try {
+                output.write(task.toString());
+                output.newLine();
             }
-        } catch (IOException e) {
-            System.out.println("Could not create file");
+            catch (Exception e) {
+                e.getStackTrace();
+            }
         }
-    }
+        );
 
-    private boolean checkSyntax() {
-        return true;
+            output.close();
+        }
+
+        catch (Exception e) {
+            e.getStackTrace();
+        }
     }
 }
