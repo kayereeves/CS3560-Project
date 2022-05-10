@@ -22,6 +22,13 @@ public class TaskModel {
     	return view;
     }
 
+    public void removeTask(String taskName) {
+        this.taskData.removeIf(task -> task.getName().equals(taskName));
+
+        System.out.println("Task \"" + taskName + "\" successfully removed.");
+        System.out.println();
+    }
+
     public void createTask(String type, TaskView view) {
 
         Scanner s = view.getScanner();

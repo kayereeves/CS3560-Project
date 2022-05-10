@@ -39,6 +39,8 @@ public class FileIO {
                         break;
                 }
             }
+            System.out.println("File read. Check updated task schedule.");
+            System.out.println();
             scanner.close();
         } catch (FileNotFoundException e) {
             System.out.println("Could not read file.");
@@ -67,5 +69,8 @@ public class FileIO {
         catch (Exception e) {
             e.getStackTrace();
         }
+
+        System.out.println("File written. If you wish, you may use it to retrieve your tasks later.");
+        System.out.println();
     }
 }

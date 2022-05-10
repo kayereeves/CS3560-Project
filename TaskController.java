@@ -48,7 +48,25 @@ public class TaskController {
     }
 
     public void taskSelection(){
-        char response = this.view.displayTaskPrompt();
+        char response = this.view.displayTaskSelectionPrompt();
+
+        if (response=='1')
+            taskTypeSelection();
+        else if(response=='2') {
+            System.out.println();
+            System.out.print("Enter task name to remove: ");
+            String taskName = this.view.getScanner().next();
+            this.model.removeTask(taskName);
+        }
+        else{
+            System.out.println(response + " is not a valid option, please try again.");
+            System.out.println();
+            taskSelection();
+        }
+    }
+
+    public void taskTypeSelection(){
+        char response = this.view.displayTaskTypePrompt();
 
         if (response=='1')
             model.createTask("transienttask", this.view);
@@ -59,8 +77,7 @@ public class TaskController {
         else{
             System.out.println(response + " is not a valid option, please try again.");
             System.out.println();
-            taskSelection();
+            taskTypeSelection();
         }
-
     }
 }

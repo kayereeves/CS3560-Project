@@ -61,7 +61,7 @@ public class TaskView {
     }
 
     //For create task
-    public char displayTaskPrompt() {
+    public char displayTaskTypePrompt() {
         System.out.println("Please choose a task type: ");
         System.out.println("1. Transient Task");
         System.out.println("2. Recurring Task");
@@ -70,6 +70,18 @@ public class TaskView {
         Scanner sc = getScanner();
         char response = sc.next().charAt(0);
 
+        return response;
+    }
+
+    //For create task
+    public char displayTaskSelectionPrompt() {
+        System.out.println("What would you like to do?");
+        System.out.println("1. Create Task");
+        System.out.println("2. Delete Task");
+    
+        Scanner sc = getScanner();
+        char response = sc.next().charAt(0);
+    
         return response;
     }
 
