@@ -12,6 +12,7 @@ public class TaskView {
 
     //TODO: add a way to list tasks by date or date range
     public void displaySchedule(List<Task> tasks) {
+        System.out.println();
         System.out.println("---Schedule---");
         System.out.println();
         
@@ -43,7 +44,6 @@ public class TaskView {
         System.out.println("2: Edit Schedule");
         System.out.println("3: Write To File");
         System.out.println("4: Read From File");
-        System.out.println();
 
         try {
             response = sc.next().charAt(0);
@@ -52,6 +52,7 @@ public class TaskView {
             System.exit(0);
         }
 
+        System.out.println();
         return response;
     }
 
@@ -78,14 +79,13 @@ public class TaskView {
         String name;
         Time startTime;   
         Time endTime;
-        String duration;
         Date date;
 
-        System.out.println("Please enter task data when prompted:");
-
-        System.out.print("Task name: ");
-        name = sc.nextLine();
         System.out.println();
+        System.out.println("Please enter task data:");
+        System.out.println();
+        System.out.print("Task name (no spaces, please): ");
+        name = sc.next();
         //check if name exists
 
         System.out.print("Please enter start time (hh:mm, 24-hour clock): ");
@@ -94,22 +94,16 @@ public class TaskView {
             System.out.println("Invalid time");
             startTime = Time.parseTime(sc);
         }
-        System.out.println();
-        
         System.out.print("Please enter end time (hh:mm, 24-hour clock): ");
         endTime = Time.parseTime(sc);
         while (!endTime.validate()) {
             System.out.println("Invalid time");
             endTime = Time.parseTime(sc);
         }
-        System.out.println();
+
         //check if valid or overlap
 
-        System.out.println("Please enter the duration:");
-        duration = sc.nextLine();
-        //check if valid or overlap
-
-        if (taskType.equals("transient") || taskType.equals("antitask")) {
+        if (taskType.equals("transienttask") || taskType.equals("antitask")) {
             System.out.print("What date will this task occur? (mm/dd/yyyy): ");
             date = Date.parseDate(sc);
             while (!date.validate()) {
@@ -118,15 +112,14 @@ public class TaskView {
             }
             //check if valid or if task with this name exists on this day already??
             //maybe it should go before task name then? bc a task might have same name but be on different days
-            arguments = new Object[] {name, taskType, startTime, duration, date};
+            arguments = new Object[] {name, taskType, startTime, endTime, date};
         }
-        else if (taskType.equals("recurring")){
+        else if (taskType.equals("recurringtask")){
             Date endDate;
             int frequency;
 
             System.out.print("What date will this task begin? (mm/dd/yyyy): ");
             date = Date.parseDate(sc);
-            System.out.println();
             while (!date.validate()) {
                 System.out.println("Invalid calendar date");
                 date = Date.parseDate(sc);
@@ -134,18 +127,19 @@ public class TaskView {
             //check if valid
             System.out.print("What date will this task end? (mm/dd/yyyy): ");
             endDate = Date.parseDate(sc);
-            System.out.println();
             while (!endDate.validate()) {
                 System.out.println("Invalid calendar date");
                 endDate = Date.parseDate(sc);
             }
 
-            System.out.println("How many times will it occur? (enter number only)");
+            System.out.print("How many times will it occur? (enter number only): ");
             frequency = sc.nextInt();
+            System.out.println();
 
-            arguments = new Object[] {name, taskType, duration, startTime, endTime, date, endDate, frequency};
+            arguments = new Object[] {name, taskType, startTime, endTime, date, endDate, frequency};
         }
 
+    System.out.println();
     return arguments;
     }
 

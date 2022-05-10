@@ -27,8 +27,7 @@ public class TaskModel {
         Scanner s = view.getScanner();
         
         switch(type){
-            case "transient":
-
+            case "transienttask":
             Object[] transientData = view.retrieveTaskData(type);
             taskData.add(
                     new TransientTask(
@@ -39,7 +38,7 @@ public class TaskModel {
                          (Date)transientData[4]
                          ));
             break;
-            case "recurring":
+            case "recurringtask":
             Object[] recurringData = view.retrieveTaskData(type);
             taskData.add(
                         new RecurringTask(
@@ -67,6 +66,8 @@ public class TaskModel {
             System.out.println("Could not create task.");
         }
 
+        System.out.println("Task added to schedule.");
+        System.out.println();
     }
 
     public void editTask() {
