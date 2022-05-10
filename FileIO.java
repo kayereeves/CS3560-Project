@@ -2,7 +2,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -43,7 +42,8 @@ public class FileIO {
             System.out.println();
             scanner.close();
         } catch (FileNotFoundException e) {
-            System.out.println("Could not read file.");
+            System.out.println("Could not read file. Check that file exists.");
+            System.out.println();
         }
     }
 

@@ -11,15 +11,45 @@ public class TaskModel {
     }
 
     public List<Task> getTasks() {
-        return taskData;
+        return this.taskData;
+    }
+
+    public List<Task> getTasksByDate(Date date) {
+        List<Task> tasks = new ArrayList<Task>();
+        this.taskData.forEach((task) -> {
+            if (task.getDate().getDateString().equals(date.getDateString())) {
+                tasks.add(task);
+            }
+
+            if (task.getType().equals("recurringtask")) {
+                //do something for recurring tasks
+            }
+        });
+
+        return tasks;
+    }
+
+    public List<Task> getTasksByDate(Date date, Time start, Time end) {
+        List<Task> tasks = new ArrayList<Task>();
+        this.taskData.forEach((task) -> {
+            if (task.getDate().getDateString().equals(date.getDateString())) {
+                tasks.add(task);
+            }
+
+            if (task.getType().equals("recurringtask")) {
+                //do something for recurring tasks
+            }
+        });
+
+        return tasks;
     }
 
     public FileIO getFileIO() {
-    	return fileIO;
+    	return this.fileIO;
     }
     
     public TaskView getView() {
-    	return view;
+    	return this.view;
     }
 
     public void removeTask(String taskName) {
@@ -82,18 +112,15 @@ public class TaskModel {
         // taskData.add(task);
     }
 
-    public void deleteTask() {
-        // TODO: Delete task method
-        // taskData.remove(task)
-    }
-
     public void writeFile() {
-        // change output.txt to user input
-        fileIO.writeFile(this.taskData, "output.txt");
+        System.out.print("Enter file to write data: ");
+        String fileName = this.view.getScanner().next();
+        fileIO.writeFile(this.taskData, fileName);
     }
 
     public void readFile() {
-        // change output.txt to user input
-        fileIO.readFile(this.taskData, "output.txt");
+        System.out.print("Enter file to retrieve data: ");
+        String fileName = this.view.getScanner().next();
+        fileIO.readFile(this.taskData, fileName);
     }
 }
