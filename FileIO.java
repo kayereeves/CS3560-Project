@@ -57,10 +57,10 @@ public class FileIO {
         for (Task task : tasks) {
             try {
                 output.newLine();
-                output.write("\t{");
+                output.write("    {");
                 output.write(task.toString());
                 output.newLine();
-                output.write("\t}");
+                output.write("    }");
 
                 //prevent trailing comma
                 if (i++ != tasks.size() - 1) {
@@ -72,7 +72,8 @@ public class FileIO {
             }
         }
 
-            output.write("\n]");
+            output.newLine();
+            output.write("]");
             output.close();
         }
 

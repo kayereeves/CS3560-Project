@@ -17,9 +17,10 @@ public class RecurringTask extends Task {
     }
 
     public String toString() {
-        return "\n\t\t\"name\":\"" + super.getName() + "\",\n\t\t\"type\":\"" + super.getType() + "\",\n\t\t\"start_time\":\""
-        + super.getStartTime().getTimeString() + "\",\n\t\t\"end_time\":\"" + super.getEndTime().getTimeString() + "\",\n\t\t\"date\":\"" 
-        + super.getDate().getDateString() + "\",\n\t\t\"end_date\":\"" + this.endDate.getDateString() + "\",\n\t\t\"frequency\":\"" 
+        return "\n        \"name\": \"" + super.getName() + "\",\n        \"type\": \"" + super.getType() 
+        + "\",\n        \"start_time\": \"" + super.getStartTime().getTimeString() + "\",\n        \"end_time\": \"" 
+        + super.getEndTime().getTimeString() + "\",\n        \"date\": \"" 
+        + super.getDate().getDateString() + "\",\n        \"end_date\": \"" + this.endDate.getDateString() + "\",\n        \"frequency\": \"" 
         + this.frequency + "\"";
     }
 
