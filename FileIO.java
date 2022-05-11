@@ -51,18 +51,28 @@ public class FileIO {
         try {
         FileWriter file = new FileWriter(filename);
         BufferedWriter output = new BufferedWriter(file);
+        output.write("[");
+        int i = 0;
 
-        tasks.forEach((task) -> {
+        for (Task task : tasks) {
             try {
+                output.newLine();
+                output.write("\t{");
                 output.write(task.toString());
                 output.newLine();
+                output.write("\t}");
+
+                //prevent trailing comma
+                if (i++ != tasks.size() - 1) {
+                    output.write(",");
+                }
             }
             catch (Exception e) {
                 e.getStackTrace();
             }
         }
-        );
 
+            output.write("\n]");
             output.close();
         }
 

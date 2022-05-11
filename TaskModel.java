@@ -114,13 +114,37 @@ public class TaskModel {
 
     public void writeFile() {
         System.out.print("Enter file to write data: ");
-        String fileName = this.view.getScanner().next();
+        String fileName = "";
+
+        while (true) {
+            try {
+                fileName = this.view.getScanner().next("([0-9]?[a-z]?[A-Z]?)*.json");
+                break;
+            }
+            catch(InputMismatchException e) {
+                System.out.print("Input error. Check format and try again: ");
+                this.view.getScanner().next();
+            }
+        }
+
         fileIO.writeFile(this.taskData, fileName);
     }
 
     public void readFile() {
         System.out.print("Enter file to retrieve data: ");
-        String fileName = this.view.getScanner().next();
+        String fileName = "";
+
+        while (true) {
+            try {
+                fileName = this.view.getScanner().next("([0-9]?[a-z]?[A-Z]?)*.json");
+                break;
+            }
+            catch(InputMismatchException e) {
+                System.out.print("Input error. Check format and try again: ");
+                this.view.getScanner().next();
+            }
+        }
+
         fileIO.readFile(this.taskData, fileName);
     }
 }
