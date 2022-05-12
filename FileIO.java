@@ -2,8 +2,10 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
+import org.json.simple.JSONObject;
 
 public class FileIO {
 
@@ -48,9 +50,21 @@ public class FileIO {
     }
 
     public void writeFile(List<Task> tasks, String filename) {
-        try {
+      JSONObject object = toJSON(tasks);
+     try{
+      FileWriter file = new FileWriter(filename);
+       file.write(object.toJSONString());
+       file.flush();
+       file.close();
+     } catch (IOException e){
+       e.printStackTrace();
+     }
+     
+     
+     /**  try {
         FileWriter file = new FileWriter(filename);
         BufferedWriter output = new BufferedWriter(file);
+        JSONObject jsonData = new JSONObject();
 
         tasks.forEach((task) -> {
             try {
@@ -58,7 +72,7 @@ public class FileIO {
                 output.newLine();
             }
             catch (Exception e) {
-                e.getStackTrace();
+                //e.getStackTrace();
             }
         }
         );
@@ -68,9 +82,28 @@ public class FileIO {
 
         catch (Exception e) {
             e.getStackTrace();
-        }
+        } */
 
         System.out.println("File written. If you wish, you may use it to retrieve your tasks later.");
         System.out.println();
+    }
+
+    public JSONObject toJSON(List<Task> tasks){
+
+      JSONObject data = new JSONObject();
+      data.put("Name", tasks.get(0));
+      data.put("Type", tasks.get(1));
+      data.put("Start Time", tasks.get(2));
+      data.put("End Time", tasks.get(3));
+      //data.put("Duration", tasks.get(4));
+      data.put("Date", tasks.get(4));
+
+      if(tasks.get(1).toString() == "recurringtask"){
+        data.put("End Date", tasks.get(5));
+        data.put("Frequency", tasks.get(6));
+      }
+
+      return data;
+
     }
 }
