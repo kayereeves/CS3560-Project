@@ -77,6 +77,7 @@ public class TaskView {
         System.out.println("What would you like to do?");
         System.out.println("1. Create Task");
         System.out.println("2. Delete Task");
+        System.out.println("3. Edit Task");
 
         Scanner sc = getScanner();
         char response = sc.next().charAt(0);
@@ -84,7 +85,8 @@ public class TaskView {
         return response;
     }
 
-    public Object[] retrieveTaskData(String taskType) {
+    public Object[] retrieveTaskData(String taskType, Task task) {
+
         Scanner sc = getScanner();
         Object[] arguments = null;
         String name;
@@ -96,16 +98,19 @@ public class TaskView {
         System.out.println("Please enter task data:");
         System.out.println();
         System.out.print("Task name (no spaces, please): ");
+        if (task != null) System.out.println("\nPrevious Name: " + task.getName());
         name = sc.next();
         //check if name exists
 
         System.out.print("Please enter start time (hh:mm, 24-hour clock): ");
+        if (task != null) System.out.println("\nPrevious Start Time: " + task.getStartTime().getTimeString());
         startTime = Time.parseTime(sc);
         while (!startTime.validate()) {
             System.out.println("Invalid time");
             startTime = Time.parseTime(sc);
         }
         System.out.print("Please enter end time (hh:mm, 24-hour clock): ");
+        if (task != null) System.out.println("\nPrevious End Time: " + task.getEndTime().getTimeString());
         endTime = Time.parseTime(sc);
         while (!endTime.validate() || !endTime.validEndTime(startTime)) {
             System.out.println("Invalid time");
@@ -116,6 +121,7 @@ public class TaskView {
 
         if (taskType.equals("transienttask") || taskType.equals("antitask")) {
             System.out.print("What date will this task occur? (mm/dd/yyyy): ");
+            if (task != null) System.out.println("\nPrevious Date: " + task.getDate().getDateString());
             date = Date.parseDate(sc);
             while (!date.validate()) {
                 System.out.println("Invalid calendar date");
@@ -129,6 +135,7 @@ public class TaskView {
             int frequency;
 
             System.out.print("What date will this task begin? (mm/dd/yyyy): ");
+            if (task != null) System.out.println("\nPrevious Start Date: " + task.getDate().getDateString());
             date = Date.parseDate(sc);
             while (!date.validate()) {
                 System.out.println("Invalid calendar date");
@@ -136,6 +143,8 @@ public class TaskView {
             }
             //check if valid
             System.out.print("What date will this task end? (mm/dd/yyyy): ");
+            if (task != null)
+                System.out.println("\nPrevious End Date: " + ((RecurringTask) task).getEndDate().getDateString());
             endDate = Date.parseDate(sc);
             while (!endDate.validate() || !endDate.validEndDate(date)) {
                 System.out.println("Invalid calendar date");
@@ -144,6 +153,8 @@ public class TaskView {
             // System.out.println("Valid end date? " + endDate.validEndDate(date));
 
             System.out.print("How many times will it occur? (enter number only): ");
+            if (task != null) System.out.println("\nPrevious Frequency: " + ((RecurringTask) task).getFrequency());
+
             frequency = sc.nextInt();
             System.out.println();
 

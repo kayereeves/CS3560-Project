@@ -71,7 +71,7 @@ public class TaskModel {
 
         switch (type) {
             case "transienttask":
-                Object[] transientData = view.retrieveTaskData(type);
+                Object[] transientData = view.retrieveTaskData(type, null);
                 taskData.add(
                         new TransientTask(
                                 String.valueOf(transientData[0]),
@@ -82,7 +82,7 @@ public class TaskModel {
                         ));
                 break;
             case "recurringtask":
-                Object[] recurringData = view.retrieveTaskData(type);
+                Object[] recurringData = view.retrieveTaskData(type, null);
                 taskData.add(
                         new RecurringTask(
                                 String.valueOf(recurringData[0]),
@@ -95,7 +95,7 @@ public class TaskModel {
                         ));
                 break;
             case "antitask":
-                Object[] antitaskData = view.retrieveTaskData(type);
+                Object[] antitaskData = view.retrieveTaskData(type, null);
                 taskData.add(
                         new AntiTask(
                                 String.valueOf(antitaskData[0]),
@@ -115,11 +115,59 @@ public class TaskModel {
 
 
     public void editTask(String taskName) {
-        if (this.taskData.contains(taskName)) {
-            // Edit task
-        } else {
-            System.out.println("Task \"" + taskName + "\" not found.");
+        if (taskData.isEmpty()) {
+            System.out.println("No tasks to edit.");
+            System.out.println(2);
+            return;
         }
+        taskData.forEach(task -> {
+            if (task.getName().equals(taskName)) {
+                int index = taskData.indexOf(task);
+                String type = task.getType();
+                switch (type) {
+                    case "recurringtask":
+                        Object[] recurringData = view.retrieveTaskData(type, task);
+                        taskData.set(index,
+                                new RecurringTask(
+                                        String.valueOf(recurringData[0]),
+                                        String.valueOf(recurringData[1]),
+                                        (Time) recurringData[2],
+                                        (Time) recurringData[3],
+                                        (Date) recurringData[4],
+                                        (Date) recurringData[5],
+                                        (int) recurringData[6]
+                                ));
+                        break;
+                    case "transienttask":
+                        Object[] transientData = view.retrieveTaskData(type, task);
+                        taskData.set(index,
+                                new TransientTask(
+                                        String.valueOf(transientData[0]),
+                                        String.valueOf(transientData[1]),
+                                        (Time) transientData[2],
+                                        (Time) transientData[3],
+                                        (Date) transientData[4]
+                                ));
+                        break;
+                    case "antitask":
+                        Object[] antitaskData = view.retrieveTaskData(type, task);
+                        taskData.set(index,
+                                new AntiTask(
+                                        String.valueOf(antitaskData[0]),
+                                        String.valueOf(antitaskData[1]),
+                                        (Time) antitaskData[2],
+                                        (Time) antitaskData[3],
+                                        (Date) antitaskData[4]
+                                ));
+                        break;
+                    default:
+                        System.out.println("Could not edit task.");
+                }
+                return;
+            }
+        });
+
+        System.out.println("Task \"" + taskName + "\" not found.");
         System.out.println();
     }
 

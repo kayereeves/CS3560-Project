@@ -8,11 +8,11 @@ public class TaskController {
     }
 
     public TaskModel getModel() {
-    	return model;
+        return model;
     }
-    
+
     public TaskView getView() {
-    	return view;
+        return view;
     }
 
 
@@ -47,34 +47,38 @@ public class TaskController {
         }
     }
 
-    public void taskSelection(){
+    public void taskSelection() {
         char response = this.view.displayTaskSelectionPrompt();
 
-        if (response=='1')
+        if (response == '1')
             taskTypeSelection();
-        else if(response=='2') {
+        else if (response == '2') {
             System.out.println();
             System.out.print("Enter task name to remove: ");
             String taskName = this.view.getScanner().next();
             this.model.removeTask(taskName);
-        }
-        else{
+        } else if (response == '3') {
+            System.out.println();
+            System.out.print("Enter task name to edit: ");
+            String taskName = this.view.getScanner().next();
+            this.model.editTask(taskName);
+        } else {
             System.out.println(response + " is not a valid option, please try again.");
             System.out.println();
             taskSelection();
         }
     }
 
-    public void taskTypeSelection(){
+    public void taskTypeSelection() {
         char response = this.view.displayTaskTypePrompt();
 
-        if (response=='1')
+        if (response == '1')
             model.createTask("transienttask", this.view);
-        else if(response=='2')
+        else if (response == '2')
             model.createTask("recurringtask", this.view);
-        else if(response=='3')
+        else if (response == '3')
             model.createTask("antitask", this.view);
-        else{
+        else {
             System.out.println(response + " is not a valid option, please try again.");
             System.out.println();
             taskTypeSelection();
