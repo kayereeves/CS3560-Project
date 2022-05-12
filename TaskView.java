@@ -6,7 +6,7 @@ public class TaskView {
 
     private Scanner sc = new Scanner(System.in);
 
-    public Scanner getScanner(){
+    public Scanner getScanner() {
         return sc;
     }
 
@@ -15,11 +15,10 @@ public class TaskView {
         System.out.println();
         System.out.println("---Schedule---");
         System.out.println();
-        
+
         if (tasks.size() == 0) {
             System.out.println("There are no tasks.");
-        }
-        else {
+        } else {
             tasks.forEach((task) -> displayTask(task));
         }
         System.out.println();
@@ -30,7 +29,7 @@ public class TaskView {
     }
 
     public void displayTask(Task task) {
-    	task.print();
+        task.print();
         System.out.println();
     }
 
@@ -78,18 +77,18 @@ public class TaskView {
         System.out.println("What would you like to do?");
         System.out.println("1. Create Task");
         System.out.println("2. Delete Task");
-    
+
         Scanner sc = getScanner();
         char response = sc.next().charAt(0);
-    
+
         return response;
     }
 
-    public Object[] retrieveTaskData(String taskType){
+    public Object[] retrieveTaskData(String taskType) {
         Scanner sc = getScanner();
         Object[] arguments = null;
         String name;
-        Time startTime;   
+        Time startTime;
         Time endTime;
         Date date;
 
@@ -108,7 +107,7 @@ public class TaskView {
         }
         System.out.print("Please enter end time (hh:mm, 24-hour clock): ");
         endTime = Time.parseTime(sc);
-        while (!endTime.validate()) {
+        while (!endTime.validate() || !endTime.validEndTime(startTime)) {
             System.out.println("Invalid time");
             endTime = Time.parseTime(sc);
         }
@@ -124,9 +123,8 @@ public class TaskView {
             }
             //check if valid or if task with this name exists on this day already??
             //maybe it should go before task name then? bc a task might have same name but be on different days
-            arguments = new Object[] {name, taskType, startTime, endTime, date};
-        }
-        else if (taskType.equals("recurringtask")){
+            arguments = new Object[]{name, taskType, startTime, endTime, date};
+        } else if (taskType.equals("recurringtask")) {
             Date endDate;
             int frequency;
 
@@ -139,20 +137,21 @@ public class TaskView {
             //check if valid
             System.out.print("What date will this task end? (mm/dd/yyyy): ");
             endDate = Date.parseDate(sc);
-            while (!endDate.validate()) {
+            while (!endDate.validate() || !endDate.validEndDate(date)) {
                 System.out.println("Invalid calendar date");
                 endDate = Date.parseDate(sc);
             }
+            // System.out.println("Valid end date? " + endDate.validEndDate(date));
 
             System.out.print("How many times will it occur? (enter number only): ");
             frequency = sc.nextInt();
             System.out.println();
 
-            arguments = new Object[] {name, taskType, startTime, endTime, date, endDate, frequency};
+            arguments = new Object[]{name, taskType, startTime, endTime, date, endDate, frequency};
         }
 
-    System.out.println();
-    return arguments;
+        System.out.println();
+        return arguments;
     }
 
 }

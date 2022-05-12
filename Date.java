@@ -1,6 +1,5 @@
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import java.lang.String;
 
 public class Date {
     public static final String pattern = "[0-9]?[0-9]/[0-9]?[0-9]/[0-9][0-9][0-9][0-9]";
@@ -16,7 +15,7 @@ public class Date {
         this.month = month;
         this.day = day;
         this.year = year;
-        this.dateString = this.month + "/" + this.day + "/" + this.year; 
+        this.dateString = this.month + "/" + this.day + "/" + this.year;
 
         String s = Integer.toString(this.year) + String.format("%02d", this.month) + String.format("%02d", this.day);
         this.dateInt = Integer.parseInt(s);
@@ -43,10 +42,21 @@ public class Date {
         return this.dateString;
     }
 
+    public Boolean validEndDate(Date startDate) {
+        if (this.year < startDate.year) {
+            return false;
+        } else if (this.year == startDate.year && this.month < startDate.month) {
+            return false;
+        } else if (this.year == startDate.year && this.month == startDate.month && this.day <= startDate.day) {
+            return false;
+        }
+        return true;
+    }
+
     //returns true if date is in valid range
     public Boolean validate() {
         if (this.month >= 1 && this.month <= 12) {
-            switch(this.month) {
+            switch (this.month) {
                 //months with 31 days
                 case 1:
                 case 3:
@@ -72,22 +82,21 @@ public class Date {
 
                 //february
                 case 2:
-                    if (((this.year % 4 == 0) && 
-                    !(this.year % 100 == 0))
-                    || (this.year % 400 == 0)) {
+                    if (((this.year % 4 == 0) &&
+                            !(this.year % 100 == 0))
+                            || (this.year % 400 == 0)) {
                         //leap year
                         if (this.day < 1 || this.day > 29) {
                             return false;
                         }
-                    }
-                    else {
+                    } else {
                         //non leap year
                         if (this.day < 1 || this.day > 28) {
                             return false;
                         }
                     }
                     break;
-            }   
+            }
 
             if (this.year < MIN_YEAR || this.year > MAX_YEAR) {
                 return false;
@@ -102,7 +111,7 @@ public class Date {
     public static int[] conversion(String s) {
         String[] splitString = s.split("/");
         int[] arr = {Integer.parseInt(splitString[0]), Integer.parseInt(splitString[1]),
-        Integer.parseInt(splitString[2])};
+                Integer.parseInt(splitString[2])};
 
         return arr;
     }
@@ -115,15 +124,14 @@ public class Date {
             try {
                 s = sc.next(Date.pattern);
                 break;
-            }
-            catch(InputMismatchException e) {
+            } catch (InputMismatchException e) {
                 System.out.print("Input error. Check format and try again: ");
                 sc.next();
             }
         }
 
         int[] monthDayYear = conversion(s);
-        
+
         return intsToDate(monthDayYear);
     }
 

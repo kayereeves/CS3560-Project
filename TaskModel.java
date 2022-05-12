@@ -114,7 +114,7 @@ public class TaskModel {
 
     public void editTask(String taskName) {
         if (this.taskData.contains(taskName)) {
-
+            // Edit task
         } else {
             System.out.println("Task \"" + taskName + "\" not found.");
         }

@@ -7,12 +7,12 @@ public class Time {
     private int minutes; //0-59
     private String timeString;
     private double timeDouble;
-    
+
     public Time(int hours, int minutes) {
         this.hours = hours;
         this.minutes = minutes;
         this.round();
-        this.timeString = this.hours + ":" + this.minutes; 
+        this.timeString = this.hours + ":" + this.minutes;
         this.calcDouble();
     }
 
@@ -52,15 +52,14 @@ public class Time {
             try {
                 s = sc.next(Time.pattern);
                 break;
-            }
-            catch(InputMismatchException e) {
+            } catch (InputMismatchException e) {
                 System.out.print("Input error. Check format and try again: ");
                 sc.next();
             }
         }
 
         int[] hoursAndMinutes = conversion(s);
-        
+
         return intsToTime(hoursAndMinutes);
     }
 
@@ -90,14 +89,22 @@ public class Time {
         return false;
     }
 
+    public Boolean validEndTime(Time startTime) {
+        if (this.hours < startTime.hours) {
+            return false;
+        } else if (this.hours == startTime.hours && this.minutes <= startTime.minutes) {
+            return false;
+        }
+        return true;
+    }
+
     //rounds minutes to nearest 15
     private void round() {
         int mod = this.minutes % 15;
 
         if (mod >= 8) {
             this.minutes = minutes + (15 - mod);
-        }
-        else {
+        } else {
             this.minutes = this.minutes - mod;
         }
 
@@ -106,8 +113,7 @@ public class Time {
 
             if (this.hours == 23) {
                 this.hours = 0;
-            }
-            else {
+            } else {
                 this.hours += 1;
             }
         }
@@ -115,8 +121,7 @@ public class Time {
 
     //returns true if calling object time is earlier than arg
     public Boolean lessThan(Time toCompare) {
-        if (this.getTimeDouble() < toCompare.getTimeDouble())
-        {
+        if (this.getTimeDouble() < toCompare.getTimeDouble()) {
             return true;
         }
         return false;
