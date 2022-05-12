@@ -71,13 +71,42 @@ public class TaskView {
 
         return response;
     }
+    
+  //For create task
+    public char displayTaskSubtypePrompt(int taskType) {
+    	Scanner sc = getScanner();
+    	char response = ' ';
+    	switch(taskType) {
+    		case 1:
+    		System.out.println("Please choose a transient task subtype: ");
+        	System.out.println("1. Visit");
+        	System.out.println("2. Shopping");
+        	System.out.println("3. Appointment");
+    		response = sc.next().charAt(0);
+    		break;
+    		case 2:
+    		System.out.println("Please choose a recurring task subtype: ");
+        	System.out.println("1. Class");
+        	System.out.println("2. Study");
+        	System.out.println("3. Sleep");
+        	System.out.println("4. Exercise");
+        	System.out.println("5. Work");
+        	System.out.println("6. Meal");
+        	response = sc.next().charAt(0);
+    		break;
+    		default:
+    		System.out.println("An error has occurred with selecting subtypes.");
+    	}
+
+        return response;
+    }
 
     //For create task
     public char displayTaskSelectionPrompt() {
         System.out.println("What would you like to do?");
         System.out.println("1. Create Task");
         System.out.println("2. Delete Task");
-        System.out.println("3. Edit Task");
+        System.out.println("3: Edit Task");
 
         Scanner sc = getScanner();
         char response = sc.next().charAt(0);
@@ -85,8 +114,7 @@ public class TaskView {
         return response;
     }
 
-    public Object[] retrieveTaskData(String taskType, Task task) {
-
+    public Object[] retrieveTaskData(String[] taskType, Task task) {
         Scanner sc = getScanner();
         Object[] arguments = null;
         String name;
@@ -119,7 +147,7 @@ public class TaskView {
 
         //check if valid or overlap
 
-        if (taskType.equals("transienttask") || taskType.equals("antitask")) {
+        if (taskType[0].equals("transienttask") || taskType[0].equals("antitask")) {
             System.out.print("What date will this task occur? (mm/dd/yyyy): ");
             if (task != null) System.out.println("\nPrevious Date: " + task.getDate().getDateString());
             date = Date.parseDate(sc);
@@ -130,7 +158,7 @@ public class TaskView {
             //check if valid or if task with this name exists on this day already??
             //maybe it should go before task name then? bc a task might have same name but be on different days
             arguments = new Object[]{name, taskType, startTime, endTime, date};
-        } else if (taskType.equals("recurringtask")) {
+        } else if (taskType[0].equals("recurringtask")) {
             Date endDate;
             int frequency;
 
@@ -154,7 +182,6 @@ public class TaskView {
 
             System.out.print("How many times will it occur? (enter number only): ");
             if (task != null) System.out.println("\nPrevious Frequency: " + ((RecurringTask) task).getFrequency());
-
             frequency = sc.nextInt();
             System.out.println();
 

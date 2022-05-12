@@ -1,12 +1,12 @@
 public abstract class Task {
     private String name;
-    private String type;
+    private String[] type;
     private Time startTime;
     private Time endTime;
     private double duration;
     private Date date;
     
-    public Task(String name, String type, Time startTime, Time endTime, Date date) {
+    public Task(String name, String[] type, Time startTime, Time endTime, Date date) {
         this.name = name;
         this.type = type;
         this.startTime = startTime;
@@ -19,7 +19,7 @@ public abstract class Task {
 		return name;
 	}
 	
-	public String getType() {
+	public String[] getType() {
 		return type;
 	}
 	
