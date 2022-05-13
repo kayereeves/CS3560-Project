@@ -122,6 +122,19 @@ public class TaskView {
         Time endTime;
         Date date;
 
+        /*
+        if (taskType[0].equals("antitask")) {
+            System.out.println();
+            System.out.println("Please enter recurring task name to cancel out:");
+            System.out.println();
+
+            String recurringTaskName = sc.next();
+            while () {
+                System.out.println("Invalid time");
+                recurringTaskName = sc.next();
+            }
+        }*/
+
         System.out.println();
         System.out.println("Please enter task data:");
         System.out.println();
@@ -180,9 +193,13 @@ public class TaskView {
             }
             // System.out.println("Valid end date? " + endDate.validEndDate(date));
 
-            System.out.print("How many times will it occur? (enter number only): ");
+            System.out.print("How many times will it occur? (1 or 7): ");
             if (task != null) System.out.println("\nPrevious Frequency: " + ((RecurringTask) task).getFrequency());
             frequency = sc.nextInt();
+            while (frequency != 1 && frequency != 7) {
+                System.out.println("Invalid frequency.");
+                frequency = sc.nextInt();
+            }
             System.out.println();
 
             arguments = new Object[]{name, taskType, startTime, endTime, date, endDate, frequency};

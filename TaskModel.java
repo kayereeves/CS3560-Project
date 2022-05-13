@@ -1,4 +1,6 @@
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 public class TaskModel {
     private List<Task> taskData = new ArrayList<Task>();
@@ -45,20 +47,20 @@ public class TaskModel {
     }
 
     public FileIO getFileIO() {
-    	return this.fileIO;
+        return this.fileIO;
     }
-    
+
     public TaskView getView() {
-    	return this.view;
+        return this.view;
     }
 
     public void removeTask(String taskName) {
         boolean removeSuccess = this.taskData.removeIf(task -> task.getName().equals(taskName));
         if (removeSuccess) {
-        	System.out.println("Task \"" + taskName + "\" successfully removed.");
+            System.out.println("Task \"" + taskName + "\" successfully removed.");
             System.out.println();
         } else {
-        	System.out.println("Task \"" + taskName + "\" does not exist.");
+            System.out.println("Task \"" + taskName + "\" does not exist.");
             System.out.println();
         }
     }
@@ -66,49 +68,73 @@ public class TaskModel {
     public void createTask(String[] type, TaskView view) {
 
         Scanner s = view.getScanner();
-        
-        switch(type[0]){
+
+        switch (type[0]) {
             case "transienttask":
-            Object[] transientData = view.retrieveTaskData(type, null);
-            taskData.add(
-                    new TransientTask(
-                         String.valueOf(transientData[0]),
-                         (String[])transientData[1],
-                         (Time)transientData[2],
-                         (Time)transientData[3],
-                         (Date)transientData[4]
-                         ));
-            break;
-            case "recurringtask":
-            Object[] recurringData = view.retrieveTaskData(type, null);
-            taskData.add(
-                        new RecurringTask(
-                            String.valueOf(recurringData[0]),
-                            (String[])recurringData[1],
-                            (Time)recurringData[2],
-                            (Time)recurringData[3],
-                            (Date)recurringData[4],
-                            (Date)recurringData[5],
-                            (int)recurringData[6]
+                Object[] transientData = view.retrieveTaskData(type, null);
+                taskData.add(
+                        new TransientTask(
+                                String.valueOf(transientData[0]),
+                                (String[]) transientData[1],
+                                (Time) transientData[2],
+                                (Time) transientData[3],
+                                (Date) transientData[4]
                         ));
-            break;
+                break;
+            case "recurringtask":
+                Object[] recurringData = view.retrieveTaskData(type, null);
+                taskData.add(
+                        new RecurringTask(
+                                String.valueOf(recurringData[0]),
+                                (String[]) recurringData[1],
+                                (Time) recurringData[2],
+                                (Time) recurringData[3],
+                                (Date) recurringData[4],
+                                (Date) recurringData[5],
+                                (int) recurringData[6]
+                        ));
+                break;
             case "antitask":
-            Object[] antitaskData = view.retrieveTaskData(type, null);
-            taskData.add(
-                    new AntiTask(
-                        String.valueOf(antitaskData[0]),
-                        (String[])antitaskData[1],
-                        (Time)antitaskData[2],
-                        (Time)antitaskData[3],
-                        (Date)antitaskData[4]
-                    ));
-            break;
+                Object[] antitaskData = view.retrieveTaskData(type, null);
+                if (validAntiTask(antitaskData)) {
+                    taskData.add(
+                            new AntiTask(
+                                    String.valueOf(antitaskData[0]),
+                                    (String[]) antitaskData[1],
+                                    (Time) antitaskData[2],
+                                    (Time) antitaskData[3],
+                                    (Date) antitaskData[4]
+                            ));
+                } else {
+                    System.out.println("Failed to create task. Invalid values.");
+                    System.out.println();
+                    return;
+                }
+                break;
             default:
-            System.out.println("Could not create task.");
+                System.out.println("Could not create task.");
         }
 
         System.out.println("Task added to schedule.");
         System.out.println();
+    }
+
+    public boolean validAntiTask(Object[] antiTaskData) {
+        Time startTime = (Time) antiTaskData[2];
+        Time endTime = (Time) antiTaskData[3];
+        Date date = (Date) antiTaskData[4];
+
+        for (Task taskDatum : taskData) {
+            if (taskDatum.getClass().equals(RecurringTask.class)) {
+                RecurringTask recurringTask = (RecurringTask) taskDatum;
+                if (recurringTask.recurringDates.contains(date.getDateInt())
+                        && recurringTask.getStartTime().getTimeDouble() == startTime.getTimeDouble()
+                        && recurringTask.getEndTime().getTimeDouble() == endTime.getTimeDouble()) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     public void editTask(String taskName) {
@@ -127,7 +153,7 @@ public class TaskModel {
                         taskData.set(index,
                                 new RecurringTask(
                                         String.valueOf(recurringData[0]),
-                                        (String[])recurringData[1],
+                                        (String[]) recurringData[1],
                                         (Time) recurringData[2],
                                         (Time) recurringData[3],
                                         (Date) recurringData[4],
@@ -140,7 +166,7 @@ public class TaskModel {
                         taskData.set(index,
                                 new TransientTask(
                                         String.valueOf(transientData[0]),
-                                        (String[])transientData[1],
+                                        (String[]) transientData[1],
                                         (Time) transientData[2],
                                         (Time) transientData[3],
                                         (Date) transientData[4]
@@ -148,14 +174,20 @@ public class TaskModel {
                         break;
                     case "antitask":
                         Object[] antitaskData = view.retrieveTaskData(type, task);
-                        taskData.set(index,
-                                new AntiTask(
-                                        String.valueOf(antitaskData[0]),
-                                        (String[])antitaskData[1],
-                                        (Time) antitaskData[2],
-                                        (Time) antitaskData[3],
-                                        (Date) antitaskData[4]
-                                ));
+                        if (validAntiTask(antitaskData)) {
+                            taskData.set(index,
+                                    new AntiTask(
+                                            String.valueOf(antitaskData[0]),
+                                            (String[]) antitaskData[1],
+                                            (Time) antitaskData[2],
+                                            (Time) antitaskData[3],
+                                            (Date) antitaskData[4]
+                                    ));
+                        } else {
+                            System.out.println("Failed to edit task. Invalid values.");
+                            System.out.println();
+                            return;
+                        }
                         break;
                     default:
                         System.out.println("Could not edit task.");
