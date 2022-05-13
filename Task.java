@@ -44,9 +44,11 @@ public abstract class Task {
     }
 
     public String toString() {
-        return "\n        \"name\": \"" + this.name + "\",\n        \"type\": \"" + this.type + "\",\n        \"start_time\": \"" 
-        + this.startTime.getTimeString() + "\",\n        \"end_time\": \"" + this.endTime.getTimeString() 
-        + "\",\n        \"date\": \"" + this.date.getDateString() + "\"";
+        return "\n        \"Name\" : \"" + this.name 
+        + "\",\n        \"Type\" : \"" + this.type[1] 
+        + "\",\n        \"Date\" : \"" + this.date.getDateInt()
+        + "\",\n        \"StartTime\" : \"" + this.startTime.getTimeDouble() 
+        + "\",\n        \"Duration\" : \"" + this.duration + "\"";
     }
 
     //helper method to determine if tasks overlap
