@@ -71,32 +71,32 @@ public class TaskView {
 
         return response;
     }
-    
-  //For create task
+
+    //For create task
     public char displayTaskSubtypePrompt(int taskType) {
-    	Scanner sc = getScanner();
-    	char response = ' ';
-    	switch(taskType) {
-    		case 1:
-    		System.out.println("Please choose a transient task subtype: ");
-        	System.out.println("1. Visit");
-        	System.out.println("2. Shopping");
-        	System.out.println("3. Appointment");
-    		response = sc.next().charAt(0);
-    		break;
-    		case 2:
-    		System.out.println("Please choose a recurring task subtype: ");
-        	System.out.println("1. Class");
-        	System.out.println("2. Study");
-        	System.out.println("3. Sleep");
-        	System.out.println("4. Exercise");
-        	System.out.println("5. Work");
-        	System.out.println("6. Meal");
-        	response = sc.next().charAt(0);
-    		break;
-    		default:
-    		System.out.println("An error has occurred with selecting subtypes.");
-    	}
+        Scanner sc = getScanner();
+        char response = ' ';
+        switch (taskType) {
+            case 1:
+                System.out.println("Please choose a transient task subtype: ");
+                System.out.println("1. Visit");
+                System.out.println("2. Shopping");
+                System.out.println("3. Appointment");
+                response = sc.next().charAt(0);
+                break;
+            case 2:
+                System.out.println("Please choose a recurring task subtype: ");
+                System.out.println("1. Class");
+                System.out.println("2. Study");
+                System.out.println("3. Sleep");
+                System.out.println("4. Exercise");
+                System.out.println("5. Work");
+                System.out.println("6. Meal");
+                response = sc.next().charAt(0);
+                break;
+            default:
+                System.out.println("An error has occurred with selecting subtypes.");
+        }
 
         return response;
     }
@@ -140,7 +140,7 @@ public class TaskView {
         System.out.print("Please enter end time (hh:mm, 24-hour clock): ");
         if (task != null) System.out.println("\nPrevious End Time: " + task.getEndTime().getTimeString());
         endTime = Time.parseTime(sc);
-        while (!endTime.validate() || !endTime.validEndTime(startTime)) {
+        while (!endTime.validate()) {
             System.out.println("Invalid time");
             endTime = Time.parseTime(sc);
         }
@@ -174,7 +174,7 @@ public class TaskView {
             if (task != null)
                 System.out.println("\nPrevious End Date: " + ((RecurringTask) task).getEndDate().getDateString());
             endDate = Date.parseDate(sc);
-            while (!endDate.validate() || !endDate.validEndDate(date)) {
+            while (!endDate.validate()) {
                 System.out.println("Invalid calendar date");
                 endDate = Date.parseDate(sc);
             }

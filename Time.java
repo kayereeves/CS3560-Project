@@ -97,14 +97,15 @@ public class Time {
         return false;
     }
 
+    /*
     public Boolean validEndTime(Time startTime) {
-        if (this.hours < startTime.hours) {
+        if (this.hours <= startTime.hours) {
             return false;
         } else if (this.hours == startTime.hours && this.minutes <= startTime.minutes) {
             return false;
         }
         return true;
-    }
+    }*/
 
     //rounds minutes to nearest 15
     private void round() {
