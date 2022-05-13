@@ -15,23 +15,24 @@ public class FileIO {
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
                 String s = scanner.nextLine();
-                String[] arr = s.split(",");
+                // TODO: fix fileIO
+                Object[] arr = s.split(",");
 
-                switch(arr[1]) {
+                switch((String)arr[1]) {
                     case "antitask":
-                        tasks.add(new AntiTask(arr[0], arr[1], Time.intsToTime(Time.conversion(arr[2])),
-                        Time.intsToTime(Time.conversion(arr[3])), Date.intsToDate(Date.conversion(arr[4]))));
+                        tasks.add(new AntiTask((String)arr[0], (String[])arr[1], Time.intsToTime(Time.conversion((String)arr[2])),
+                        Time.intsToTime(Time.conversion((String)arr[3])), Date.intsToDate(Date.conversion((String)arr[4]))));
                         break;
 
                     case "recurringtask":
-                        tasks.add(new RecurringTask(arr[0], arr[1], Time.intsToTime(Time.conversion(arr[2])),
-                        Time.intsToTime(Time.conversion(arr[3])), Date.intsToDate(Date.conversion(arr[4])),
-                        Date.intsToDate(Date.conversion(arr[5])), Integer.parseInt(arr[6])));
+                        tasks.add(new RecurringTask((String)arr[0], (String[])arr[1], Time.intsToTime(Time.conversion((String)arr[2])),
+                        Time.intsToTime(Time.conversion((String)arr[3])), Date.intsToDate(Date.conversion((String)arr[4])),
+                        Date.intsToDate(Date.conversion((String)arr[5])), Integer.parseInt((String)arr[6])));
                         break;
 
                     case "transienttask":
-                        tasks.add(new TransientTask(arr[0], arr[1], Time.intsToTime(Time.conversion(arr[2])),
-                        Time.intsToTime(Time.conversion(arr[3])), Date.intsToDate(Date.conversion(arr[4]))));
+                        tasks.add(new TransientTask((String)arr[0], (String[])arr[1], Time.intsToTime(Time.conversion((String)arr[2])),
+                        Time.intsToTime(Time.conversion((String)arr[3])), Date.intsToDate(Date.conversion((String)arr[4]))));
                         break;
 
                     default:
