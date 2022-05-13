@@ -1,25 +1,18 @@
 [
     {
-        "name": "a",
-        "type": "transienttask",
-        "start_time": "5:30",
-        "end_time": "6:0",
-        "date": "5/11/2022"
+        "Name" : "shopping",
+        "Type" : "Shopping",
+        "Date" : "20220512",
+        "StartTime" : "3.75",
+        "Duration" : "0.25"
     },
     {
-        "name": "b",
-        "type": "recurringtask",
-        "start_time": "1:0",
-        "end_time": "2:0",
-        "date": "1/1/2022",
-        "end_date": "1/31/2022",
-        "frequency": "1"
-    },
-    {
-        "name": "c",
-        "type": "antitask",
-        "start_time": "7:30",
-        "end_time": "8:0",
-        "date": "5/11/2022"
+        "Name" : "work",
+        "Type" : "Work",
+        "StartDate" : "20220512",
+        "StartTime" : "7.0",
+        "Duration" : "1.0",
+        "EndDate" : "20220514",
+        "Frequency" : "1"
     }
 ]

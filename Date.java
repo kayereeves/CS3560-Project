@@ -21,6 +21,15 @@ public class Date {
         this.dateInt = Integer.parseInt(s);
     }
 
+    public Date dateFromInt(int dateInt) {
+        String s = Integer.toString(dateInt);
+        int m = Integer.parseInt(s.substring(4, 5));
+        int d = Integer.parseInt(s.substring(6, 7));
+        int y = Integer.parseInt(s.substring(0, 3));
+
+        return new Date(m, d, y);
+    }
+
     public int getDay() {
         return day;
     }
