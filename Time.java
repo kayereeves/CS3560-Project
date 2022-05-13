@@ -16,14 +16,13 @@ public class Time {
         this.calcDouble();
     }
 
-    /*public Time timeFromDouble(double t) {
-        String s = Double.toString(t);
-        String[] split = s.split(".");
-        int h = Integer.parseInt(split[0]);
-        double temp = Double.parseDouble(split[1]) * 60;
-        Double d = new Double(temp);
-        int m = d.intValue(temp);
-    }*/
+    public static Time timeFromDouble(double t) {
+        int h = (int) t;
+        double temp = (t - h) * 60;
+        int m = (int) temp;
+
+        return new Time(h, m);
+    }
 
     public int getHours() {
         return hours;

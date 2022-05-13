@@ -21,11 +21,11 @@ public class Date {
         this.dateInt = Integer.parseInt(s);
     }
 
-    public Date dateFromInt(int dateInt) {
+    public static Date dateFromInt(int dateInt) {
         String s = Integer.toString(dateInt);
-        int m = Integer.parseInt(s.substring(4, 5));
-        int d = Integer.parseInt(s.substring(6, 7));
-        int y = Integer.parseInt(s.substring(0, 3));
+        int m = Integer.parseInt(s.substring(4, 6));
+        int d = Integer.parseInt(s.substring(6, 8));
+        int y = Integer.parseInt(s.substring(0, 4));
 
         return new Date(m, d, y);
     }
