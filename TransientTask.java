@@ -1,12 +1,12 @@
 public class TransientTask extends Task{  
-    TransientTask(String name, String type, Time startTime, Time endTime, Date date){
+    TransientTask(String name, String[] type, Time startTime, Time endTime, Date date){
         super(name, type, startTime, endTime, date);
     }
 
     //prints task info
     public void print() {
         System.out.println("Name: " + super.getName());
-        System.out.println("Type: " + super.getType());
+        System.out.println("Type: " + super.getType()[1]);
         System.out.print("Start Time: ");
         super.getStartTime().print();
         System.out.println();
