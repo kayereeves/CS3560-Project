@@ -1,0 +1,25 @@
+[
+    {
+        "name": "a",
+        "type": "transienttask",
+        "start_time": "5:30",
+        "end_time": "6:0",
+        "date": "5/11/2022"
+    },
+    {
+        "name": "b",
+        "type": "recurringtask",
+        "start_time": "1:0",
+        "end_time": "2:0",
+        "date": "1/1/2022",
+        "end_date": "1/31/2022",
+        "frequency": "1"
+    },
+    {
+        "name": "c",
+        "type": "antitask",
+        "start_time": "7:30",
+        "end_time": "8:0",
+        "date": "5/11/2022"
+    }
+]

@@ -2,10 +2,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
-import org.json.simple.JSONObject;
 
 public class FileIO {
 
@@ -17,23 +15,24 @@ public class FileIO {
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
                 String s = scanner.nextLine();
-                String[] arr = s.split(",");
+                // TODO: fix fileIO
+                Object[] arr = s.split(",");
 
-                switch(arr[1]) {
+                switch((String)arr[1]) {
                     case "antitask":
-                        tasks.add(new AntiTask(arr[0], arr[1], Time.intsToTime(Time.conversion(arr[2])),
-                        Time.intsToTime(Time.conversion(arr[3])), Date.intsToDate(Date.conversion(arr[4]))));
+                        tasks.add(new AntiTask((String)arr[0], (String[])arr[1], Time.intsToTime(Time.conversion((String)arr[2])),
+                        Time.intsToTime(Time.conversion((String)arr[3])), Date.intsToDate(Date.conversion((String)arr[4]))));
                         break;
 
                     case "recurringtask":
-                        tasks.add(new RecurringTask(arr[0], arr[1], Time.intsToTime(Time.conversion(arr[2])),
-                        Time.intsToTime(Time.conversion(arr[3])), Date.intsToDate(Date.conversion(arr[4])),
-                        Date.intsToDate(Date.conversion(arr[5])), Integer.parseInt(arr[6])));
+                        tasks.add(new RecurringTask((String)arr[0], (String[])arr[1], Time.intsToTime(Time.conversion((String)arr[2])),
+                        Time.intsToTime(Time.conversion((String)arr[3])), Date.intsToDate(Date.conversion((String)arr[4])),
+                        Date.intsToDate(Date.conversion((String)arr[5])), Integer.parseInt((String)arr[6])));
                         break;
 
                     case "transienttask":
-                        tasks.add(new TransientTask(arr[0], arr[1], Time.intsToTime(Time.conversion(arr[2])),
-                        Time.intsToTime(Time.conversion(arr[3])), Date.intsToDate(Date.conversion(arr[4]))));
+                        tasks.add(new TransientTask((String)arr[0], (String[])arr[1], Time.intsToTime(Time.conversion((String)arr[2])),
+                        Time.intsToTime(Time.conversion((String)arr[3])), Date.intsToDate(Date.conversion((String)arr[4]))));
                         break;
 
                     default:
@@ -50,60 +49,40 @@ public class FileIO {
     }
 
     public void writeFile(List<Task> tasks, String filename) {
-      JSONObject object = toJSON(tasks);
-     try{
-      FileWriter file = new FileWriter(filename);
-       file.write(object.toJSONString());
-       file.flush();
-       file.close();
-     } catch (IOException e){
-       e.printStackTrace();
-     }
-     
-     
-     /**  try {
+        try {
         FileWriter file = new FileWriter(filename);
         BufferedWriter output = new BufferedWriter(file);
-        JSONObject jsonData = new JSONObject();
+        output.write("[");
+        int i = 0;
 
-        tasks.forEach((task) -> {
+        for (Task task : tasks) {
             try {
+                output.newLine();
+                output.write("    {");
                 output.write(task.toString());
                 output.newLine();
+                output.write("    }");
+
+                //prevent trailing comma
+                if (i++ != tasks.size() - 1) {
+                    output.write(",");
+                }
             }
             catch (Exception e) {
-                //e.getStackTrace();
+                e.getStackTrace();
             }
         }
-        );
 
+            output.newLine();
+            output.write("]");
             output.close();
         }
 
         catch (Exception e) {
             e.getStackTrace();
-        } */
+        }
 
         System.out.println("File written. If you wish, you may use it to retrieve your tasks later.");
         System.out.println();
-    }
-
-    public JSONObject toJSON(List<Task> tasks){
-
-      JSONObject data = new JSONObject();
-      data.put("Name", tasks.get(0));
-      data.put("Type", tasks.get(1));
-      data.put("Start Time", tasks.get(2));
-      data.put("End Time", tasks.get(3));
-      //data.put("Duration", tasks.get(4));
-      data.put("Date", tasks.get(4));
-
-      if(tasks.get(1).toString() == "recurringtask"){
-        data.put("End Date", tasks.get(5));
-        data.put("Frequency", tasks.get(6));
-      }
-
-      return data;
-
     }
 }

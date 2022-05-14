@@ -55,7 +55,7 @@ public class Date {
                 case 8:
                 case 10:
                 case 12:
-                    if (this.day <= 1 || this.day >= 31) {
+                    if (this.day < 1 || this.day > 31) {
                         return false;
                     }
                     break;
@@ -65,7 +65,7 @@ public class Date {
                 case 4:
                 case 6:
                 case 11:
-                    if (this.day <= 1 || this.day >= 30) {
+                    if (this.day < 1 || this.day > 30) {
                         return false;
                     }
                     break;
