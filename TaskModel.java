@@ -28,11 +28,8 @@ public class TaskModel {
                 System.out.println("Printing schedule for Day of " + startDate.getDateString() + ".");
                 for (Task task : taskData) {
                     if (task.getClass() == RecurringTask.class) {
-                        for (int recurringDate : ((RecurringTask) task).recurringDates) {
-                            if (recurringDate == startDate.getDateInt()) {
-                                filteredTasks.add(task);
-                                break;
-                            }
+                        if (((RecurringTask) task).recurringDates.contains(startDate.getDateInt())) {
+                            filteredTasks.add(task);
                         }
                     } else if (task.getDate().getDateInt() == startDate.getDateInt()) {
                         filteredTasks.add(task);
@@ -45,15 +42,12 @@ public class TaskModel {
                 System.out.println("Printing schedule for Week of " + startDate.getDateString() + ".");
                 for (Task task : taskData) {
                     int increment = 0;
-                    outerloop:
                     for (int i = startDate.getDay() % 7; i <= 7; i++) {
                         Date dayOfWeek = new Date(startDate.getMonth(), startDate.getDay() + (increment++), startDate.getYear());
                         if (task.getClass() == RecurringTask.class) {
-                            for (int recurringDate : ((RecurringTask) task).recurringDates) {
-                                if (recurringDate == dayOfWeek.getDateInt()) {
-                                    filteredTasks.add(task);
-                                    break outerloop;
-                                }
+                            if (((RecurringTask) task).recurringDates.contains(dayOfWeek.getDateInt())) {
+                                filteredTasks.add(task);
+                                break;
                             }
                         } else if (task.getDate().getDateInt() == dayOfWeek.getDateInt()) {
                             filteredTasks.add(task);
@@ -68,18 +62,16 @@ public class TaskModel {
                 System.out.println("Printing schedule for Month of " + startDate.getDateString() + ".");
                 for (Task task : taskData) {
                     int increment = 0;
-                    outerloop:
                     for (int i = startDate.getDay() % startDate.getDaysInMonth(); i <= startDate.getDaysInMonth(); i++) {
                         Date dayOfMonth = new Date(startDate.getMonth(), startDate.getDay() + (increment++), startDate.getYear());
                         if (task.getClass() == RecurringTask.class) {
-                            for (int recurringDate : ((RecurringTask) task).recurringDates) {
-                                if (recurringDate == dayOfMonth.getDateInt()) {
-                                    filteredTasks.add(task);
-                                    break outerloop;
-                                }
+                            if (((RecurringTask) task).recurringDates.contains(dayOfMonth.getDateInt())) {
+                                filteredTasks.add(task);
+                                break;
                             }
                         } else if (task.getDate().getDateInt() == dayOfMonth.getDateInt()) {
                             filteredTasks.add(task);
+                            break;
                         }
                     }
                 }
