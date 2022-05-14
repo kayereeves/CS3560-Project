@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
@@ -19,6 +21,7 @@ public class TaskView {
         if (tasks.size() == 0) {
             System.out.println("There are no tasks.");
         } else {
+            sortListByDate(tasks);
             tasks.forEach((task) -> displayTask(task));
         }
         System.out.println();
@@ -26,6 +29,23 @@ public class TaskView {
         /* TODO: Add formatting for schedule display and different
             display types
          */
+    }
+
+    public void sortListByDate(List<Task> tasks) {
+        tasks.sort(new Comparator<Task>() {
+            @Override
+            public int compare(Task o1, Task o2) {
+                LocalDate o1Date = LocalDate.of(o1.getDate().getYear(), o1.getDate().getMonth(), o1.getDate().getDay());
+                LocalDate o2Date = LocalDate.of(o2.getDate().getYear(), o2.getDate().getMonth(), o2.getDate().getDay());
+                if (o1Date.isBefore(o2Date)) {
+                    return -1;
+                } else if (o1Date.isEqual(o2Date)) {
+                    return 0;
+                } else {
+                    return 1;
+                }
+            }
+        });
     }
 
     //For create task

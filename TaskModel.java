@@ -17,8 +17,7 @@ public class TaskModel {
     }
 
     /////////////////// View Schedule Filters
-
-    //TODO: Tasks are filtered below by date, week, or month, but they are not sorted.
+    
     public List<Task> getTasksByFilter(char filter, Date startDate) {
         List<Task> filteredTasks = new ArrayList<Task>();
         switch (filter) {
@@ -82,8 +81,8 @@ public class TaskModel {
         return filteredTasks;
     }
 
-
     /////////////////// End View Schedule Filters
+
 
     public List<Task> getTasksByDate(Date date) {
         List<Task> tasks = new ArrayList<Task>();
