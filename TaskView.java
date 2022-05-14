@@ -28,6 +28,20 @@ public class TaskView {
          */
     }
 
+    //For create task
+    public char displayViewSelectionPrompt() {
+        System.out.println("How would you like your schedule displayed?");
+        System.out.println("1. Day");
+        System.out.println("2. Week");
+        System.out.println("3: Month");
+        System.out.println("4: All");
+
+        Scanner sc = getScanner();
+        char response = sc.next().charAt(0);
+
+        return response;
+    }
+
     public void displayTask(Task task) {
         task.print();
         System.out.println();
@@ -187,7 +201,7 @@ public class TaskView {
             if (task != null)
                 System.out.println("\nPrevious End Date: " + ((RecurringTask) task).getEndDate().getDateString());
             endDate = Date.parseDate(sc);
-            while (!endDate.validate()) {
+            while (!endDate.validate() || !endDate.validEndDate(date)) {
                 System.out.println("Invalid calendar date");
                 endDate = Date.parseDate(sc);
             }

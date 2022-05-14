@@ -16,6 +16,83 @@ public class TaskModel {
         return this.taskData;
     }
 
+    /////////////////// View Schedule Filters
+
+    //TODO: Tasks are filtered below by date, week, or month, but they are not sorted.
+    public List<Task> getTasksByFilter(char filter, Date startDate) {
+        List<Task> filteredTasks = new ArrayList<Task>();
+        switch (filter) {
+            case '1':
+                // particular day
+                System.out.println();
+                System.out.println("Printing schedule for Day of " + startDate.getDateString() + ".");
+                for (Task task : taskData) {
+                    if (task.getClass() == RecurringTask.class) {
+                        for (int recurringDate : ((RecurringTask) task).recurringDates) {
+                            if (recurringDate == startDate.getDateInt()) {
+                                filteredTasks.add(task);
+                                break;
+                            }
+                        }
+                    } else if (task.getDate().getDateInt() == startDate.getDateInt()) {
+                        filteredTasks.add(task);
+                    }
+                }
+                break;
+            case '2':
+                // particular week
+                System.out.println();
+                System.out.println("Printing schedule for Week of " + startDate.getDateString() + ".");
+                for (Task task : taskData) {
+                    int increment = 0;
+                    outerloop:
+                    for (int i = startDate.getDay() % 7; i <= 7; i++) {
+                        Date dayOfWeek = new Date(startDate.getMonth(), startDate.getDay() + (increment++), startDate.getYear());
+                        if (task.getClass() == RecurringTask.class) {
+                            for (int recurringDate : ((RecurringTask) task).recurringDates) {
+                                if (recurringDate == dayOfWeek.getDateInt()) {
+                                    filteredTasks.add(task);
+                                    break outerloop;
+                                }
+                            }
+                        } else if (task.getDate().getDateInt() == dayOfWeek.getDateInt()) {
+                            filteredTasks.add(task);
+                            break;
+                        }
+                    }
+                }
+                break;
+            case '3':
+                // particular month
+                System.out.println();
+                System.out.println("Printing schedule for Month of " + startDate.getDateString() + ".");
+                for (Task task : taskData) {
+                    int increment = 0;
+                    outerloop:
+                    for (int i = startDate.getDay() % startDate.getDaysInMonth(); i <= startDate.getDaysInMonth(); i++) {
+                        Date dayOfMonth = new Date(startDate.getMonth(), startDate.getDay() + (increment++), startDate.getYear());
+                        if (task.getClass() == RecurringTask.class) {
+                            for (int recurringDate : ((RecurringTask) task).recurringDates) {
+                                if (recurringDate == dayOfMonth.getDateInt()) {
+                                    filteredTasks.add(task);
+                                    break outerloop;
+                                }
+                            }
+                        } else if (task.getDate().getDateInt() == dayOfMonth.getDateInt()) {
+                            filteredTasks.add(task);
+                        }
+                    }
+                }
+                break;
+            default:
+                System.out.print("Invalid input.");
+        }
+        return filteredTasks;
+    }
+
+
+    /////////////////// End View Schedule Filters
+
     public List<Task> getTasksByDate(Date date) {
         List<Task> tasks = new ArrayList<Task>();
         this.taskData.forEach((task) -> {
