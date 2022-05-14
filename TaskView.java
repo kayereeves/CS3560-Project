@@ -28,6 +28,20 @@ public class TaskView {
          */
     }
 
+    //For create task
+    public char displayViewSelectionPrompt() {
+        System.out.println("How would you like your schedule displayed?");
+        System.out.println("1. Day");
+        System.out.println("2. Week");
+        System.out.println("3: Month");
+        System.out.println("4: All");
+
+        Scanner sc = getScanner();
+        char response = sc.next().charAt(0);
+
+        return response;
+    }
+
     public void displayTask(Task task) {
         task.print();
         System.out.println();
@@ -122,6 +136,19 @@ public class TaskView {
         Time endTime;
         Date date;
 
+        /*
+        if (taskType[0].equals("antitask")) {
+            System.out.println();
+            System.out.println("Please enter recurring task name to cancel out:");
+            System.out.println();
+
+            String recurringTaskName = sc.next();
+            while () {
+                System.out.println("Invalid time");
+                recurringTaskName = sc.next();
+            }
+        }*/
+
         System.out.println();
         System.out.println("Please enter task data:");
         System.out.println();
@@ -174,15 +201,19 @@ public class TaskView {
             if (task != null)
                 System.out.println("\nPrevious End Date: " + ((RecurringTask) task).getEndDate().getDateString());
             endDate = Date.parseDate(sc);
-            while (!endDate.validate()) {
+            while (!endDate.validate() || !endDate.validEndDate(date)) {
                 System.out.println("Invalid calendar date");
                 endDate = Date.parseDate(sc);
             }
             // System.out.println("Valid end date? " + endDate.validEndDate(date));
 
-            System.out.print("How many times will it occur? (enter number only): ");
+            System.out.print("How many times will it occur? (1 or 7): ");
             if (task != null) System.out.println("\nPrevious Frequency: " + ((RecurringTask) task).getFrequency());
             frequency = sc.nextInt();
+            while (frequency != 1 && frequency != 7) {
+                System.out.println("Invalid frequency.");
+                frequency = sc.nextInt();
+            }
             System.out.println();
 
             arguments = new Object[]{name, taskType, startTime, endTime, date, endDate, frequency};

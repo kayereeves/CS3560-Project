@@ -117,6 +117,17 @@ public class Date {
         return false;
     }
 
+    public int getDaysInMonth() {
+        if (this.month == 1 || this.month == 3 || this.month == 5 || this.month == 7
+                || this.month == 8 || this.month == 10 || this.month == 12) {
+            return 31;
+        } else if (this.month == 4 || this.month == 6 || this.month == 9 || this.month == 11) {
+            return 30;
+        } else if (this.month == 2) {
+            return 28;
+        } else return -1;
+    }
+
     public static int[] conversion(String s) {
         String[] splitString = s.split("/");
         int[] arr = {Integer.parseInt(splitString[0]), Integer.parseInt(splitString[1]),
