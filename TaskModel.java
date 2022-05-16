@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -274,7 +275,7 @@ public class TaskModel {
         fileIO.writeFile(this.taskData, fileName);
     }
 
-    public void readFile() {
+    public void readFile() throws IOException {
         System.out.print("Enter file to retrieve data: ");
         String fileName = this.view.getScanner().next();
         fileIO.readFile(this.taskData, fileName);

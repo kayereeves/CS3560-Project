@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.Scanner;
 
 public class TaskController {
@@ -18,7 +19,7 @@ public class TaskController {
     }
 
 
-    public void menuSelection() {
+    public void menuSelection() throws IOException {
         while (true) {
             char response = this.view.displayMenu();
 
