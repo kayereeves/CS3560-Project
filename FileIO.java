@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Arrays;
 
 public class FileIO {
 
@@ -19,11 +20,18 @@ public class FileIO {
             //System.out.println(test); //prints what was read from file
             System.out.println("testing this is the updates version --");
             String[] allTasks = test.split("\\{");
-
+            System.out.println(Arrays.toString(allTasks));
             
             List<String[]> taskData = new ArrayList<>();
-            for(int i = 0; i<allTasks.length; i++){
-                taskData.add(allTasks[i].split("[:,]"));
+            // starting at i = 1 gets rid of strange bracket at i = 0
+            for(int i = 1; i<allTasks.length; i++){
+            	String[] split = allTasks[i].split("[:,]");
+            	for (int j = 0; j < split.length; j++) {
+            		split[j] = split[j].replaceAll("\\s", "");
+            	}
+            	System.out.println(Arrays.toString(split));
+                taskData.add(split);
+                
             }
             //System.out.println(taskData.get(1)[3]); //task type
 
@@ -138,7 +146,7 @@ public class FileIO {
 
 
       switch(task) {
-        //case "antitask":
+        case "antitask":
         //    tasks.add(new AntiTask((String)arr[0], (String[])arr[1], Time.intsToTime(Time.conversion((String)arr[2])),
         //    Time.intsToTime(Time.conversion((String)arr[3])), Date.intsToDate(Date.conversion((String)arr[4]))));
         //    break;
