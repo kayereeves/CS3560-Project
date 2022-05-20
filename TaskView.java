@@ -161,7 +161,6 @@ public class TaskView {
             System.out.println();
             System.out.println("Please enter recurring task name to cancel out:");
             System.out.println();
-
             String recurringTaskName = sc.next();
             while () {
                 System.out.println("Invalid time");

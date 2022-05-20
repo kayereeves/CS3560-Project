@@ -33,8 +33,9 @@ public class RecurringTask extends Task {
             LocalDate startDate = LocalDate.of(date.getYear(), date.getMonth(), date.getDay());
             LocalDate newDate = startDate.plusDays((long) frequency * i);
             Date date = convertLocalDateToDate(newDate);
+            String strDate = String.valueOf(date.getDateInt());
             if (calculateDateDuration(date, endDate) >= 0) {
-                System.out.println("RecurringDate (" + i + "): " + date.getDateInt());
+                System.out.println("RecurringDate (" + i + "): " + strDate.substring(4, 6) + "/" + strDate.substring(6, 8) + "/" + strDate.substring(0, 4));
                 recurringDates.add(date.getDateInt());
             } else {
                 break;
@@ -53,7 +54,7 @@ public class RecurringTask extends Task {
         LocalDate startDate = LocalDate.of(start.getYear(), start.getMonth(), start.getDay());
         LocalDate endDate = LocalDate.of(end.getYear(), end.getMonth(), end.getDay());
 
-        System.out.print("DAYS BETWEEN: " + ((int) DAYS.between(startDate, endDate)) + " ");
+        //System.out.print("DAYS BETWEEN: " + ((int) DAYS.between(startDate, endDate)) + " ");
         return (int) DAYS.between(startDate, endDate);
     }
     ////////////////////// End Recurring Dates

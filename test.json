@@ -1,25 +1,2 @@
 [
-    {
-        "Name" : "visit",
-        "Type" : "Visit",
-        "Date" : "20220517",
-        "StartTime" : "5.5",
-        "Duration" : "0.5"
-    },
-    {
-        "Name" : "exercise",
-        "Type" : "Exercise",
-        "StartDate" : "20220513",
-        "StartTime" : "5.25",
-        "Duration" : "2.25",
-        "EndDate" : "20220514",
-        "Frequency" : "1"
-    },
-    {
-        "Name" : "antitask",
-        "Type" : "Cancellation",
-        "Date" : "20220512",
-        "StartTime" : "17.75",
-        "Duration" : "0.25"
-    }
 ]
