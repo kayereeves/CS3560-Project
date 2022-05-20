@@ -50,7 +50,7 @@ public class TaskView {
 
     //For create task
     public char displayViewSelectionPrompt() {
-        System.out.println("How would you like your schedule displayed?");
+        System.out.println("How would you like your schedule displayed? (Note: Options 1, 2, & 3 are not currently working as functioned)");
         System.out.println("1. Day");
         System.out.println("2. Week");
         System.out.println("3: Month");
@@ -95,7 +95,7 @@ public class TaskView {
 
     //For create task
     public char displayTaskTypePrompt() {
-        System.out.println("Please choose a task type: ");
+        System.out.println("\nPlease choose a task type: ");
         System.out.println("1. Transient Task");
         System.out.println("2. Recurring Task");
         System.out.println("3. AntiTask      ");
@@ -112,14 +112,14 @@ public class TaskView {
         char response = ' ';
         switch (taskType) {
             case 1:
-                System.out.println("Please choose a transient task subtype: ");
+                System.out.println("\nPlease choose a transient task subtype: ");
                 System.out.println("1. Visit");
                 System.out.println("2. Shopping");
                 System.out.println("3. Appointment");
                 response = sc.next().charAt(0);
                 break;
             case 2:
-                System.out.println("Please choose a recurring task subtype: ");
+                System.out.println("\nPlease choose a recurring task subtype: ");
                 System.out.println("1. Class");
                 System.out.println("2. Study");
                 System.out.println("3. Sleep");
