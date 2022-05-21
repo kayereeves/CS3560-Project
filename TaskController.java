@@ -68,15 +68,15 @@ public class TaskController {
         // }
 
         if (response == '1') {
-            System.out.println("\nEnter a start day. (Currently does not work, enter format MM/DD/YYYY)");
+            System.out.println("\nEnter a start day.");
             Date startDay = Date.parseDate(sc);
             this.view.displaySchedule(this.model.getTasksByFilter('1', startDay));
         } else if (response == '2') {
-            System.out.println("\nEnter a start week. (Currently does not work, enter format MM/DD/YYYY)");
+            System.out.println("\nEnter a start week.");
             Date startWeek = Date.parseDate(sc);
             this.view.displaySchedule(this.model.getTasksByFilter('2', startWeek));
         } else if (response == '3') {
-            System.out.println("\nEnter a start month. (Currently does not work, enter format MM/DD/YYYY)");
+            System.out.println("\nEnter a start month.");
             Date startMonth = Date.parseDate(sc);
             this.view.displaySchedule(this.model.getTasksByFilter('3', startMonth));
         } else {

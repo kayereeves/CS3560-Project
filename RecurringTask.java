@@ -35,7 +35,7 @@ public class RecurringTask extends Task {
             Date date = convertLocalDateToDate(newDate);
             String strDate = String.valueOf(date.getDateInt());
             if (calculateDateDuration(date, endDate) >= 0) {
-                System.out.println("RecurringDate (" + i + "): " + strDate.substring(4, 6) + "/" + strDate.substring(6, 8) + "/" + strDate.substring(0, 4));
+                System.out.println("RecurringDate (" + (i + 1) + "): " + strDate.substring(4, 6) + "/" + strDate.substring(6, 8) + "/" + strDate.substring(0, 4));
                 recurringDates.add(date.getDateInt());
             } else {
                 break;

@@ -50,7 +50,7 @@ public class TaskView {
 
     //For create task
     public char displayViewSelectionPrompt() {
-        System.out.println("How would you like your schedule displayed? (Note: Options 1, 2, & 3 are not currently working as functioned)");
+        System.out.println("How would you like your schedule displayed?");
         System.out.println("1. Day");
         System.out.println("2. Week");
         System.out.println("3: Month");

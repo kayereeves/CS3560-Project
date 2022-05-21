@@ -1,6 +1,5 @@
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class FileIO {
@@ -13,35 +12,35 @@ public class FileIO {
             String[] allTasks = test.split("\\{");
 
             //System.out.println(Arrays.toString(allTasks));
-            
+
             List<String[]> taskData = new ArrayList<>();
             // starting at i = 1 gets rid of strange bracket at i = 0
-            for(int i = 1; i<allTasks.length; i++){
-            	String[] split = allTasks[i].split("[:,]");
-            	// removes whitespace from all tasks
-            	for (int j = 0; j < split.length; j++) {
-            		split[j] = split[j].replaceAll("\\s", "");
-            	}
-            	// ensuring that last blank element gets removed from array, does not apply for last one
-            	if (i != allTasks.length-1) {
-            		String[] temp = new String[split.length-1];
-            		for (int k = 0; k < split.length-1; k++) {
-            			temp[k] = split[k];
-            		}	
-            		split = temp;
-            		// the last one will have two characters at the end that must be removed, so this is done one extra time
-            	} else {
-            		split[split.length-1] = split[split.length-1].substring(0,split[split.length-1].length()-1);
-            	}
-            	split[split.length-1] = split[split.length-1].substring(0,split[split.length-1].length()-1);
-            	//System.out.println(Arrays.toString(split));
-              taskData.add(split);
+            for (int i = 1; i < allTasks.length; i++) {
+                String[] split = allTasks[i].split("[:,]");
+                // removes whitespace from all tasks
+                for (int j = 0; j < split.length; j++) {
+                    split[j] = split[j].replaceAll("\\s", "");
+                }
+                // ensuring that last blank element gets removed from array, does not apply for last one
+                if (i != allTasks.length - 1) {
+                    String[] temp = new String[split.length - 1];
+                    for (int k = 0; k < split.length - 1; k++) {
+                        temp[k] = split[k];
+                    }
+                    split = temp;
+                    // the last one will have two characters at the end that must be removed, so this is done one extra time
+                } else {
+                    split[split.length - 1] = split[split.length - 1].substring(0, split[split.length - 1].length() - 1);
+                }
+                split[split.length - 1] = split[split.length - 1].substring(0, split[split.length - 1].length() - 1);
+                //System.out.println(Arrays.toString(split));
+                taskData.add(split);
 
             }
 
             //individual data slots;
             for (int i = 0; i < taskData.size(); i++) {
-              
+
                 //index 3 holds the task type -- length 14 will be recurring task
                 if (taskData.get(i).length == 14) {
                     tasks.add(createTaskfromFile(tasks, taskData, "recurringtask", i, taskData.get(i).length));
@@ -49,11 +48,11 @@ public class FileIO {
                 //checks if task type is cancellation -- will be antitask
                 else if (taskData.get(i)[3].equals("\"Cancellation\"")) {
                     tasks.add(createTaskfromFile(tasks, taskData, "antitask", i, taskData.get(i).length));
-                //everything else is transient by process of elimination
+                    //everything else is transient by process of elimination
                 } else {
                     tasks.add(createTaskfromFile(tasks, taskData, "transienttask", i, taskData.get(i).length));
                 }
-        //    }
+                //    }
 
             }
 
@@ -188,11 +187,9 @@ public class FileIO {
                 time = calculateEndTime(Double.valueOf((String) arr[3]), Double.valueOf((String) arr[4]));
                 //make arr[4] hold endtime instead of duration:
                 arr[4] = correctTimeFormat(String.valueOf(time));
-                System.out.println("End time: " + arr[4]);
+
                 //now that end time is calculated we can correct start time format:
                 arr[3] = correctTimeFormat(String.valueOf(arr[3]));
-                System.out.println("Start time: " + arr[3]);
-          
 
                 // shift array elements around to fit task creation
                 // name type startTime endTime startDate
@@ -210,7 +207,7 @@ public class FileIO {
 
                 //now that end time is calculated we can correct start time format:
                 arr[3] = correctTimeFormat(String.valueOf(arr[3]));
-           
+
 
                 // shift array elements around to fit task creation
                 // name type startTime endTime startDate
@@ -250,4 +247,4 @@ public class FileIO {
 
         return correctDate;
     }
-  }
+}
