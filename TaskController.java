@@ -60,19 +60,25 @@ public class TaskController {
 
         Scanner sc = this.getView().getScanner();
 
-        System.out.println("Enter a start date.");
-        Date startDate = Date.parseDate(sc);
-        while (!startDate.validate()) {
-            System.out.println("Invalid calendar date");
-            startDate = Date.parseDate(sc);
-        }
+        // System.out.println("\nEnter a start date.");
+        // Date startDate = Date.parseDate(sc);
+        // while (!startDate.validate()) {
+        //     System.out.println("Invalid calendar date.");
+        //     startDate = Date.parseDate(sc);
+        // }
 
         if (response == '1') {
-            this.view.displaySchedule(this.model.getTasksByFilter('1', startDate));
+            System.out.println("\nEnter a start day. (Currently does not work, enter format MM/DD/YYYY)");
+            Date startDay = Date.parseDate(sc);
+            this.view.displaySchedule(this.model.getTasksByFilter('1', startDay));
         } else if (response == '2') {
-            this.view.displaySchedule(this.model.getTasksByFilter('2', startDate));
+            System.out.println("\nEnter a start week. (Currently does not work, enter format MM/DD/YYYY)");
+            Date startWeek = Date.parseDate(sc);
+            this.view.displaySchedule(this.model.getTasksByFilter('2', startWeek));
         } else if (response == '3') {
-            this.view.displaySchedule(this.model.getTasksByFilter('3', startDate));
+            System.out.println("\nEnter a start month. (Currently does not work, enter format MM/DD/YYYY)");
+            Date startMonth = Date.parseDate(sc);
+            this.view.displaySchedule(this.model.getTasksByFilter('3', startMonth));
         } else {
             System.out.println(response + " is not a valid option, please try again.");
             System.out.println();
