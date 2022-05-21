@@ -5,14 +5,12 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+import java.util.Scanner;
+import java.util.Arrays;
 
 public class FileIO {
-   String filename;
 
     String filename;
 
@@ -286,4 +284,4 @@ public class FileIO {
 
         return correctDate;
     }
-}
+  }
