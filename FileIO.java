@@ -17,10 +17,8 @@ public class FileIO {
     public void readFile(List<Task> tasks, String filename) throws IOException {
       try {
             String test = getFileData(filename);
-            //System.out.println(test); //prints what was read from file
-            System.out.println("testing this is the updates version --");
             String[] allTasks = test.split("\\{");
-            System.out.println(Arrays.toString(allTasks));
+            //System.out.println(Arrays.toString(allTasks));
             
             List<String[]> taskData = new ArrayList<>();
             // starting at i = 1 gets rid of strange bracket at i = 0
@@ -42,15 +40,9 @@ public class FileIO {
             		split[split.length-1] = split[split.length-1].substring(0,split[split.length-1].length()-1);
             	}
             	split[split.length-1] = split[split.length-1].substring(0,split[split.length-1].length()-1);
-            	System.out.println(Arrays.toString(split));
+            	//System.out.println(Arrays.toString(split));
                 taskData.add(split);
                 
-            }
-            // printing out all taskData values
-            for (int i = 0; i < taskData.size(); i++) {
-            	for (int j = 0; j < taskData.get(i).length; j++) {
-            		System.out.println(taskData.get(i)[j]);
-            	}
             }
 
             //individual data slots;
@@ -164,10 +156,8 @@ public class FileIO {
         } else {
         	combinedValues += stringMinusQuotes;
         }
-        //System.out.println(combinedValues); //comma delimited values for each task
 
       }
-      System.out.println(combinedValues);
       arr = combinedValues.split(",");
 
 
@@ -190,11 +180,6 @@ public class FileIO {
         date = convertDate(((String)arr[5]));
         arr[5] = date;
         
-        //the array holds everything we need, printed here so its easier to see what's in it.
-        //name type start date startTime endTime endDate frequency
-        for(Object dataItem: arr)
-          System.out.print(dataItem + " ");
-        System.out.println();
         
         // shift array elements around to fit task creation
         // name type startTime endTime start date endDate frequency
@@ -211,16 +196,9 @@ public class FileIO {
             time = calculateEndTime(Double.valueOf((String)arr[3]),Double.valueOf((String)arr[4]));
             //make arr[4] hold endtime instead of duration:
             arr[4] = correctTimeFormat(String.valueOf(time));
-            System.out.println("End time: " + arr[4]);
+
             //now that end time is calculated we can correct start time format:
             arr[3] = correctTimeFormat(String.valueOf(arr[3]));
-            System.out.println("Start time: " + arr[3]);
-
-            //the array holds everything we need, printed here so its easier to see what's in it.
-            //name type startDate startTime endTime
-            for(Object dataItem: arr)
-            System.out.print(dataItem + " ");
-            System.out.println();
             
             // shift array elements around to fit task creation
             // name type startTime endTime startDate
@@ -235,16 +213,9 @@ public class FileIO {
             time = calculateEndTime(Double.valueOf((String)arr[3]),Double.valueOf((String)arr[4]));
             //make arr[4] hold endtime instead of duration:
             arr[4] = correctTimeFormat(String.valueOf(time));
-            System.out.println("End time: " + arr[4]);
+
             //now that end time is calculated we can correct start time format:
             arr[3] = correctTimeFormat(String.valueOf(arr[3]));
-            System.out.println("Start time: " + arr[3]);
-
-            //the array holds everything we need, printed here so its easier to see what's in it.
-            //name type startDate startTime endTime
-            for(Object dataItem: arr)
-            System.out.print(dataItem + " ");
-            System.out.println();
             
             // shift array elements around to fit task creation
             // name type startTime endTime startDate
