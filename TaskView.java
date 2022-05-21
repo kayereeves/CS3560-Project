@@ -89,6 +89,11 @@ public class TaskView {
         return response;
     }
 
+    public void displayCreateTaskError() {
+        System.out.println("Failed to create task. Invalid values.");
+        System.out.println();
+    }
+
     public void displayInvalidResponse() {
         System.out.println("Invalid response. Please enter a valid response. \n");
     }
