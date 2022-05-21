@@ -232,20 +232,90 @@ public class TaskModel {
 
     // Returns true if transient task overlaps with recurring or other transient
     public boolean transientTaskIsOverlap(Task taskDatum, Object[] inputTask) {
+        Date inputDate = (Date) inputTask[4];
+        Time startInputTime = (Time) inputTask[2];
+        Time endInputTime = (Time) inputTask[3];
+
+        // check if overlapping a transient task
         if (taskDatum.getClass().equals(TransientTask.class)) {
+            if (taskDatum.getDate().getDateString().equals(inputDate.getDateString())) {
+                if (startInputTime.getTimeDouble() <= taskDatum.getEndTime().getTimeDouble()
+                        && startInputTime.getTimeDouble() >= taskDatum.getEndTime().getTimeDouble()
+                        || endInputTime.getTimeDouble() <= taskDatum.getEndTime().getTimeDouble()
+                        && endInputTime.getTimeDouble() >= taskDatum.getStartTime().getTimeDouble()) {
+                    return true;
+                }
+            }
 
+            // check if overlapping a recurring task
         } else if (taskDatum.getClass().equals(RecurringTask.class)) {
-
+            if (startInputTime.getTimeDouble() <= taskDatum.getEndTime().getTimeDouble()
+                    && startInputTime.getTimeDouble() >= taskDatum.getEndTime().getTimeDouble()
+                    || endInputTime.getTimeDouble() <= taskDatum.getEndTime().getTimeDouble()
+                    && endInputTime.getTimeDouble() >= taskDatum.getStartTime().getTimeDouble()) {
+                for (int recurringDate : ((RecurringTask) taskDatum).recurringDates) {
+                    if (inputDate.getDateInt() == recurringDate) {
+                        for (Task antiTask : taskData) {
+                            if (antiTask.getClass().equals(AntiTask.class)
+                                    && antiTask.getDate().getDateInt() == recurringDate
+                                    && antiTask.getStartTime().getTimeDouble() == taskDatum.getStartTime().getTimeDouble()) {
+                                return false;
+                            }
+                        }
+                        return true;
+                    }
+                }
+            }
         }
         return false;
     }
 
+
     // Returns true if recurring task overlaps with transient or other recurring
     public boolean recurringTaskIsOverlap(Task taskDatum, Object[] inputTask) {
+        RecurringTask recurringTask = new RecurringTask(
+                String.valueOf(inputTask[0]),
+                (String[]) inputTask[1],
+                (Time) inputTask[2],
+                (Time) inputTask[3],
+                (Date) inputTask[4],
+                (Date) inputTask[5],
+                (int) inputTask[6]);
+
+        // check if overlapping a transient task
         if (taskDatum.getClass().equals(TransientTask.class)) {
-
-        } else if (taskDatum.getClass().equals(RecurringTask.class)) {
-
+            if (recurringTask.getStartTime().getTimeDouble() <= taskDatum.getEndTime().getTimeDouble()
+                    && recurringTask.getStartTime().getTimeDouble() >= taskDatum.getEndTime().getTimeDouble()
+                    || recurringTask.getEndTime().getTimeDouble() <= taskDatum.getEndTime().getTimeDouble()
+                    && recurringTask.getEndTime().getTimeDouble() >= taskDatum.getStartTime().getTimeDouble()) {
+                for (int recurringDate : recurringTask.recurringDates) {
+                    if (taskDatum.getDate().getDateInt() == recurringDate) {
+                        return true;
+                    }
+                }
+            }
+        }
+        // check if overlapping a recurring task
+        else if (taskDatum.getClass().equals(RecurringTask.class)) {
+            if (recurringTask.getStartTime().getTimeDouble() <= taskDatum.getEndTime().getTimeDouble()
+                    && recurringTask.getStartTime().getTimeDouble() >= taskDatum.getEndTime().getTimeDouble()
+                    || recurringTask.getEndTime().getTimeDouble() <= taskDatum.getEndTime().getTimeDouble()
+                    && recurringTask.getEndTime().getTimeDouble() >= taskDatum.getStartTime().getTimeDouble()) {
+                for (int inputRecurringDate : recurringTask.recurringDates) {
+                    for (int existingRecurringDate : ((RecurringTask) taskDatum).recurringDates) {
+                        if (existingRecurringDate == inputRecurringDate) {
+                            for (Task antiTask : taskData) {
+                                if (antiTask.getClass().equals(AntiTask.class)
+                                        && antiTask.getDate().getDateInt() == existingRecurringDate
+                                        && antiTask.getStartTime().getTimeDouble() == taskDatum.getStartTime().getTimeDouble()) {
+                                    return false;
+                                }
+                            }
+                            return true;
+                        }
+                    }
+                }
+            }
         }
         return false;
     }
